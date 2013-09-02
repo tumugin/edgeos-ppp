@@ -9,6 +9,6 @@ README.MSCHAP81
 README.pppoe
 README.pppol2tp
 README.pwfd
-extra/README.STATIC-IP
-extra/README.win9x
-extra/defaultroute
+debian/extra/README.STATIC-IP
+debian/extra/README.win9x
+debian/extra/defaultroute
