@@ -22,6 +22,8 @@ radius_mtu
 ppp-2.4.2-stripMSdomain
 setenv_call_file
 
+ipv6-accept-remote
+
 # debian-specific
 010_scripts_README.diff
 no_crypt_hack
