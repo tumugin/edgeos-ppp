@@ -5,9 +5,6 @@ BUILD_UDEB := 1
 
 
 
-QUILT_STAMPFN := .stamp-patched
-include /usr/share/quilt/quilt.make
-
 D := $(CURDIR)/debian/ppp
 
 # plugin ABI version, part of the directory name
@@ -21,13 +18,13 @@ NO_PACKAGE := --no-package=ppp-udeb
 endif
 
 ##############################################################################
-clean: unpatch
+clean:
 	rm -rf .stamp-* pppd-udeb changelog-from-README
 	[ ! -f Makefile ] || $(MAKE) dist-clean
 	dh_clean
 
 configure: .stamp-configure
-.stamp-configure: $(QUILT_STAMPFN)
+.stamp-configure:
 	dh_testdir
 	./configure --prefix=/usr
 	touch $@

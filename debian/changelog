@@ -24,6 +24,7 @@ ppp (2.4.5+git20130610-1) UNRELEASED; urgency=low
     - pppoe_fixinclude
   * Add inactive patch to series file added in 2.4.5-1:
     - ipv6-accept-remote
+  * Switch to dpkg-source 3.0 (quilt) format.
 
  -- Chris Boot <debian@bootc.net>  Sun, 25 Aug 2013 12:25:20 +0100
 
