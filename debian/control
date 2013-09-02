@@ -3,6 +3,7 @@ Section: admin
 Priority: optional
 Homepage: http://ppp.samba.org/
 Maintainer: Marco d'Itri <md@linux.it>
+Uploaders: Chris Boot <debian@bootc.net>
 Build-Depends: debhelper (>= 5), quilt (>= 0.40), libpcap0.8-dev, libpam0g-dev, zlib1g-dev
 Standards-Version: 3.9.1
 
