@@ -27,6 +27,9 @@ ppp (2.4.5+git20130610-1) UNRELEASED; urgency=low
   * Switch to dpkg-source 3.0 (quilt) format.
   * Add Homepage field to debian/control.
   * Add myself to Uploaders.
+  * Fix lintian warnings:
+    - xc-package-type-in-debian-control line 25
+    - binary-control-field-duplicates-source field "section" in package ppp
 
  -- Chris Boot <debian@bootc.net>  Sun, 25 Aug 2013 12:25:20 +0100
 
