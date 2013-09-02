@@ -125,7 +125,7 @@
  .B disconnect \fIscript
  Execute the command specified by \fIscript\fR, by passing it to a
  shell, after
-@@ -717,7 +722,12 @@ disable both forms of hardware flow cont
+@@ -739,7 +744,12 @@ disable both forms of hardware flow cont
  .TP
  .B nodefaultroute
  Disable the \fIdefaultroute\fR option.  The system administrator who
@@ -141,9 +141,9 @@
  .B nodeflate
 --- a/pppd/pppd.h
 +++ b/pppd/pppd.h
-@@ -645,7 +645,7 @@ int  cif6addr __P((int, eui64_t, eui64_t
- int  ether_to_eui64 __P((eui64_t *));
- 				/* Convert Ethernet address into 64-bit EUI */
+@@ -662,7 +662,7 @@ int  sif6addr __P((int, eui64_t, eui64_t
+ int  cif6addr __P((int, eui64_t, eui64_t));
+ 				/* Remove an IPv6 address from i/f */
  #endif
 -int  sifdefaultroute __P((int, u_int32_t, u_int32_t));
 +int  sifdefaultroute __P((int, u_int32_t, u_int32_t, bool replace_default_rt));

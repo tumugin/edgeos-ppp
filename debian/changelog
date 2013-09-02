@@ -13,6 +13,12 @@ ppp (2.4.5+git20130610-1) UNRELEASED; urgency=low
     - fix_null_pppdb (3747616)
     - radius_enanchements (fixed in 2f581cd)
     - remove-old-version-of-Linux-if_pppol2tp-h.patch (c41092d)
+  * Refresh or edit patches to remove fuzz:
+    - 018_ip-up_option.diff
+    - cifdefroute.dif
+    - no_crypt_hack
+    - setenv_call_file
+    - zzz_config
 
  -- Chris Boot <debian@bootc.net>  Sun, 25 Aug 2013 12:25:20 +0100
 
