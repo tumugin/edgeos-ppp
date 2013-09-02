@@ -2,6 +2,17 @@ ppp (2.4.5+git20130610-1) UNRELEASED; urgency=low
 
   * New upstream git snapshot (8d69424). (Closes: #615666, #674207, #684164)
   * Move extra/ directory into debian/ directory.
+  * Remove patches applied upstream:
+    - git-20100307 (e753795..cab5861)
+    - pppoatm_no_modprobe (52cd43a)
+    - use_system_logwtmp (fixed differently in 9617a7e)
+    - dont-exit-pado-timeout (fixed differently in 225361d)
+    - fix_warnings (fixed in 0b61182)
+    - man_syntax_errors (fixed in d16a398 and a7c3489)
+    - documentation_typos (fixed in 8dea1b9, 9e05a25 and b5b8898)
+    - fix_null_pppdb (3747616)
+    - radius_enanchements (fixed in 2f581cd)
+    - remove-old-version-of-Linux-if_pppol2tp-h.patch (c41092d)
 
  -- Chris Boot <debian@bootc.net>  Sun, 25 Aug 2013 12:25:20 +0100
 
