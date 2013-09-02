@@ -19,6 +19,9 @@ ppp (2.4.5+git20130610-1) UNRELEASED; urgency=low
     - no_crypt_hack
     - setenv_call_file
     - zzz_config
+  * Remove patches that were disabled in 2.4.5-1:
+    - pppoatm_fix_mtu
+    - pppoe_fixinclude
 
  -- Chris Boot <debian@bootc.net>  Sun, 25 Aug 2013 12:25:20 +0100
 
