@@ -1,4 +1,4 @@
-ppp (2.4.5+git20130610-1) UNRELEASED; urgency=low
+ppp (2.4.5+git20130610-1) unstable; urgency=low
 
   * New upstream git snapshot (8d69424). (Closes: #615666, #674207, #684164)
   * Move extra/ directory into debian/ directory.
@@ -31,7 +31,7 @@ ppp (2.4.5+git20130610-1) UNRELEASED; urgency=low
     - xc-package-type-in-debian-control line 25
     - binary-control-field-duplicates-source field "section" in package ppp
 
- -- Chris Boot <debian@bootc.net>  Sun, 25 Aug 2013 12:25:20 +0100
+ -- Chris Boot <debian@bootc.net>  Mon, 21 Oct 2013 22:49:34 +0100
 
 ppp (2.4.5-5.2) unstable; urgency=low
 
