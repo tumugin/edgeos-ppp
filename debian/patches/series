@@ -10,6 +10,7 @@ pppoatm_resolver_light
 pppoatm_cleanup
 pppoe_noads
 readable_connerrs
+radius-config.c-unkown-typo
 
 # not ready to be merged
 011_scripts_redialer.diff
