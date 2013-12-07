@@ -1,7 +1,6 @@
 # to be merged upstream
 adaptive_echos
 makefiles_cleanup
-always_setsid
 close_dev_ppp
 chat_man
 fix_linkpidfile

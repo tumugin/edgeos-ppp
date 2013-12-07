@@ -35,6 +35,7 @@ ppp (2.4.5+git20130610-2) UNRELEASED; urgency=low
     lintian warning.
   * Add secure-card-interpreter-fix patch to fix
     example-wrong-path-for-interpreter lintian warning.
+  * Remove always_setsid patch. (Closes: #598551)
 
  -- Chris Boot <debian@bootc.net>  Sun, 27 Oct 2013 14:14:37 +0000
 

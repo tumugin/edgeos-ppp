@@ -27,7 +27,7 @@ call has now been removed which is why I'm seeing this problem.
 --
 --- a/pppd/main.c
 +++ b/pppd/main.c
-@@ -777,8 +777,7 @@ detach()
+@@ -770,8 +770,7 @@ detach()
  	/* update pid files if they have been written already */
  	if (pidfilename[0])
  	    create_pidfile(pid);
@@ -36,4 +36,4 @@ call has now been removed which is why I'm seeing this problem.
 +	create_linkpidfile(pid);
  	exit(0);		/* parent dies */
      }
-     dup2(fd_devnull, 0);
+     setsid();
