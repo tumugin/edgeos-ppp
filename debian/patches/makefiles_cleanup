@@ -197,7 +197,8 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  all: rp-pppoe.so pppoe-discovery
  
  pppoe-discovery: pppoe-discovery.o debug.o
- 	$(CC) -o pppoe-discovery pppoe-discovery.o debug.o
+-	$(CC) -o pppoe-discovery pppoe-discovery.o debug.o
++	$(CC) $(LDFLAGS) -o pppoe-discovery pppoe-discovery.o debug.o
  
  pppoe-discovery.o: pppoe-discovery.c
 -	$(CC) $(CFLAGS) -c -o pppoe-discovery.o pppoe-discovery.c
@@ -315,7 +316,7 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  LIBS =
  
  # Uncomment the next 2 lines to include support for Microsoft's
-@@ -79,27 +79,26 @@ INCLUDE_DIRS= -I../include
+@@ -82,27 +82,26 @@ INCLUDE_DIRS= -I../include
  
  COMPILE_FLAGS= -DHAVE_PATHS_H -DIPX_CHANGE -DHAVE_MMAP
  
@@ -349,7 +350,7 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  MANPAGES += srp-entry.8
  EXTRACLEAN += srp-entry.o
  NEEDDES=y
-@@ -113,12 +112,12 @@ PPPDOBJS += sha1.o
+@@ -116,12 +115,12 @@ PPPDOBJS += sha1.o
  endif
  
  ifdef HAS_SHADOW
@@ -364,7 +365,7 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  LIBS	+= -lcrypt
  endif
  
-@@ -126,7 +125,7 @@ ifdef NEEDDES
+@@ -134,7 +133,7 @@ ifdef NEEDDES
  ifndef USE_CRYPT
  LIBS     += -ldes $(LIBS)
  else
@@ -373,7 +374,7 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  endif
  PPPDOBJS += pppcrypt.o
  HEADERS += pppcrypt.h
-@@ -134,7 +133,7 @@ endif
+@@ -142,7 +141,7 @@ endif
  
  # For "Pluggable Authentication Modules", see ftp.redhat.com:/pub/pam/.
  ifdef USE_PAM
@@ -382,7 +383,7 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  LIBS     += -lpam -ldl
  endif
  
-@@ -143,14 +142,14 @@ ifdef HAVE_MULTILINK
+@@ -151,14 +150,14 @@ ifdef HAVE_MULTILINK
  	# Multilink implies the use of TDB
  	USE_TDB=y
  
@@ -399,7 +400,7 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  	PPPDSRCS += tdb.c spinlock.c
  	PPPDOBJS += tdb.o spinlock.o
  	HEADERS += tdb.h spinlock.h
-@@ -159,11 +158,11 @@ endif
+@@ -167,11 +166,11 @@ endif
  # Lock library binary for Linux is included in 'linux' subdirectory.
  ifdef LOCKLIB
  LIBS     += -llock
@@ -413,7 +414,7 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  LDFLAGS	+= -Wl,-E
  LIBS	+= -ldl
  endif
-@@ -171,7 +170,7 @@ endif
+@@ -179,7 +178,7 @@ endif
  ifdef FILTER
  ifneq ($(wildcard /usr/include/pcap-bpf.h),)
  LIBS    += -lpcap
@@ -422,7 +423,7 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  endif
  endif
  
-@@ -179,20 +178,22 @@ ifdef HAVE_INET6
+@@ -187,20 +186,22 @@ ifdef HAVE_INET6
       PPPDSRCS += ipv6cp.c eui64.c
       HEADERS  += ipv6cp.h eui64.h
       PPPDOBJS += ipv6cp.o eui64.o
@@ -448,7 +449,7 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  INSTALL= install
  
  all: $(TARGETS)
-@@ -200,11 +201,14 @@ all: $(TARGETS)
+@@ -208,11 +209,14 @@ all: $(TARGETS)
  install: pppd
  	mkdir -p $(BINDIR) $(MANDIR)
  	$(EXTRAINSTALL)

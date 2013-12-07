@@ -17,6 +17,10 @@ else
 NO_PACKAGE := --no-package=ppp-udeb
 endif
 
+# Enable hardening build flags
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all,-pie
+include /usr/share/dpkg/buildflags.mk
+
 ##############################################################################
 clean:
 	rm -rf .stamp-* pppd-udeb changelog-from-README
@@ -45,21 +49,23 @@ build-indep: build
 build: .stamp-build
 .stamp-build: .stamp-configure
 	dh_testdir
-	$(MAKE)
+	$(MAKE) CFLAGS="$(CFLAGS) $(CPPFLAGS)" LDFLAGS="$(LDFLAGS)"
 	touch $@
 
 build-udeb: .stamp-build-udeb
 .stamp-build-udeb: .stamp-udebdir
 	dh_testdir
 	cd pppd-udeb/ && \
-	$(MAKE) CFLAGS="$(CFLAGS) -Os -fomit-frame-pointer" \
+	$(MAKE) CFLAGS="$(CFLAGS) $(CPPFLAGS) -Os -fomit-frame-pointer" \
+		LDFLAGS="$(LDFLAGS)" \
 		CHAPMS= USE_CRYPT= NO_CRYPT_HACK=1 MPPE= \
 		FILTER= HAVE_MULTILINK= USE_TDB= \
 		HAS_SHADOW= USE_PAM= HAVE_INET6= \
 		CBCP= USE_SRP= MAXOCTETS= USE_BUILTIN_CRYPTO=1 \
 	&& \
 	cd plugins/ && \
-	$(MAKE) CFLAGS="$(CFLAGS) -Os -fomit-frame-pointer" \
+	$(MAKE) CFLAGS="$(CFLAGS) $(CPPFLAGS) -Os -fomit-frame-pointer" \
+		LDFLAGS="$(LDFLAGS)" \
 		SUBDIRS='rp-pppoe pppoatm' PLUGINS=
 	touch $@
 

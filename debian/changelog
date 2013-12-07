@@ -37,6 +37,7 @@ ppp (2.4.5+git20130610-2) UNRELEASED; urgency=low
     example-wrong-path-for-interpreter lintian warning.
   * Remove always_setsid patch. (Closes: #598551)
   * Add Vcs-Browser and Vcs-Git fields pointing to collab-maint/pkg-ppp.git.
+  * Enable hardening build flags. (Closes: #658181)
 
  -- Chris Boot <debian@bootc.net>  Sun, 27 Oct 2013 14:14:37 +0000
 
