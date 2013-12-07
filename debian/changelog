@@ -33,6 +33,8 @@ ppp (2.4.5+git20130610-2) UNRELEASED; urgency=low
     - package-would-benefit-from-build-arch-targets
   * Add radius-config.c-unkown-typo patch to fix spelling-error-in-binary
     lintian warning.
+  * Add secure-card-interpreter-fix patch to fix
+    example-wrong-path-for-interpreter lintian warning.
 
  -- Chris Boot <debian@bootc.net>  Sun, 27 Oct 2013 14:14:37 +0000
 

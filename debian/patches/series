@@ -30,3 +30,4 @@ ipv6-accept-remote
 no_crypt_hack
 resolv.conf_no_log
 zzz_config
+secure-card-interpreter-fix
