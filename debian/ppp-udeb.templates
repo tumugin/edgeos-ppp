@@ -24,7 +24,7 @@ _Description: No PPPoE concentrator
 Template: ppp/interface
 Type: string
 Default: _
-Description: Interface name:
+_Description: Interface name:
  Please enter the name of the network interface connected to the PPPoE
  modem.
 

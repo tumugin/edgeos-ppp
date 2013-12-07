@@ -2,11 +2,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ppp 2.4.4rel\n"
-"Report-Msgid-Bugs-To: md@linux.it\n"
-"POT-Creation-Date: 2007-10-24 07:31+0200\n"
+"Report-Msgid-Bugs-To: ppp@packages.debian.org\n"
+"POT-Creation-Date: 2012-09-02 11:02-0400\n"
 "PO-Revision-Date: 2007-01-29 20:50+0200\n"
 "Last-Translator: Marco d'Itri <md@linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -56,6 +57,21 @@ msgid ""
 msgstr ""
 "La configurazione di PPPoE è annullata. Può essere tentata di nuovo "
 "selezionando la voce dal menù."
+
+#. Type: string
+#. Description
+#: ../ppp-udeb.templates:4001
+msgid "Interface name:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../ppp-udeb.templates:4001
+#, fuzzy
+#| msgid "Please enter the username for the PPP connection."
+msgid ""
+"Please enter the name of the network interface connected to the PPPoE modem."
+msgstr "Inserire l'username per la connessione PPP."
 
 #. Type: string
 #. Description

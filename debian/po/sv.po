@@ -1,25 +1,20 @@
-# translation of ppp_2.4.4rel-10_sv.po to Swedish
-# Translators, if you are not familiar with the PO format, gettext
-# documentation is worth reading, especially sections dedicated to
-# this format, e.g. by running:
-# info -n '(gettext)PO Files'
-# info -n '(gettext)Header Entry'
-# Some information specific to po-debconf are available at
-# /usr/share/doc/po-debconf/README-trans
-# or http://www.debian.org/intl/l10n/po-debconf/README-trans
-# Developers do not need to manually edit POT or PO files.
+# Translation of ppp debconf template to Swedish
+# Copyright (C) 2012 Martin Bagge <brother@bsnet.se>
+# This file is distributed under the same license as the ppp package.
 #
-# Martin Ågren <martin.agren@gmail.com>, 2008.
+# Martin Ã…gren <martin.agren@gmail.com>, 2008.
+# Martin Bagge <brother@bsnet.se>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: ppp_2.4.4rel-10_sv\n"
-"Report-Msgid-Bugs-To: md@linux.it\n"
-"POT-Creation-Date: 2007-10-24 07:31+0200\n"
+"Report-Msgid-Bugs-To: ppp@packages.debian.org\n"
+"POT-Creation-Date: 2012-08-30 14:53-0400\n"
 "PO-Revision-Date: 2008-07-19 12:21+0200\n"
-"Last-Translator: Martin Ågren <martin.agren@gmail.com>\n"
+"Last-Translator: Martin Bagge <brother@bsnet.se>\n"
 "Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
@@ -44,7 +39,7 @@ msgid ""
 "All network interfaces have been probed, but a PPPoE concentrator was not "
 "detected."
 msgstr ""
-"Alla nätverksgränssnitt har genomsökts men ingen PPPoE-koncentrator hittades."
+"Alla nÃ¤tverksgrÃ¤nssnitt har genomsÃ¶kts men ingen PPPoE-koncentrator hittades."
 
 #. Type: error
 #. Description
@@ -60,20 +55,33 @@ msgid ""
 "The configuration of PPPoE has been aborted. It can be attempted again by "
 "selecting the relevant menu entry."
 msgstr ""
-"Konfigurationen av PPPoE har avbrutits. Den kan startas om genom att välja "
+"Konfigurationen av PPPoE har avbrutits. Den kan startas om genom att vÃ¤lja "
 "den relevanta menyposten."
+
+#. Type: string
+#. Description
+#: ../ppp-udeb.templates:4001
+msgid "Interface name:"
+msgstr "GrÃ¤nssnittsnamn:"
+
+#. Type: string
+#. Description
+#: ../ppp-udeb.templates:4001
+msgid ""
+"Please enter the name of the network interface connected to the PPPoE modem."
+msgstr "Ange namnet pÃ¥ nÃ¤tverkskortet som Ã¤r anslutet till PPPoE-modemet."
 
 #. Type: string
 #. Description
 #: ../ppp-udeb.templates:5001
 msgid "ISP account username:"
-msgstr "Användarnamn hos internetleverantör:"
+msgstr "AnvÃ¤ndarnamn hos internetleverantÃ¶r:"
 
 #. Type: string
 #. Description
 #: ../ppp-udeb.templates:5001
 msgid "Please enter the username for the PPP connection."
-msgstr "Ange användarnamnet för PPP-anslutningen."
+msgstr "Ange anvÃ¤ndarnamnet fÃ¶r PPP-anslutningen."
 
 #. Type: string
 #. Description
@@ -82,25 +90,25 @@ msgstr "Ange användarnamnet för PPP-anslutningen."
 #: ../ppp-udeb.templates:5001 ../ppp-udeb.templates:6001
 msgid ""
 "This information should have been provided by your Internet Service Provider."
-msgstr "Denna information ska din internetleverantör ha delgivit dig."
+msgstr "Denna information ska din internetleverantÃ¶r ha delgivit dig."
 
 #. Type: password
 #. Description
 #: ../ppp-udeb.templates:6001
 msgid "ISP account password:"
-msgstr "Lösenord hos internetleverantör:"
+msgstr "LÃ¶senord hos internetleverantÃ¶r:"
 
 #. Type: password
 #. Description
 #: ../ppp-udeb.templates:6001
 msgid "Please enter the password for the PPP connection."
-msgstr "Ange lösenordet för PPP-anslutningen."
+msgstr "Ange lÃ¶senordet fÃ¶r PPP-anslutningen."
 
 #. Type: error
 #. Description
 #: ../ppp-udeb.templates:7001
 msgid "No Ethernet interface"
-msgstr "Inget Ethernet-gränssnitt"
+msgstr "Inget Ethernet-grÃ¤nssnitt"
 
 #. Type: error
 #. Description
@@ -109,14 +117,14 @@ msgid ""
 "PPPoE networking cannot be configured because no Ethernet interface was "
 "detected."
 msgstr ""
-"PPPoE-nätverket kan inte konfigureras på grund av att inget Ethernet-"
-"gränssnitt hittades."
+"PPPoE-nÃ¤tverket kan inte konfigureras pÃ¥ grund av att inget Ethernet-"
+"grÃ¤nssnitt hittades."
 
 #. Type: text
 #. Description
 #: ../ppp-udeb.templates:8001
 msgid "Searching for concentrators on ${IFACE}..."
-msgstr "Söker efter koncentratorer på ${IFACE}..."
+msgstr "SÃ¶ker efter koncentratorer pÃ¥ ${IFACE}..."
 
 #. Type: error
 #. Description
@@ -131,14 +139,14 @@ msgid ""
 "A PPPoE connection was attempted, but the provided login information was "
 "probably incorrect."
 msgstr ""
-"En PPPoE-anslutning försöktes men den tillhandahållna "
+"En PPPoE-anslutning fÃ¶rsÃ¶ktes men den tillhandahÃ¥llna "
 "inloggningsinformationen var troligen felaktig."
 
 #. Type: error
 #. Description
 #: ../ppp-udeb.templates:9001
 msgid "Please check the username and password you provided."
-msgstr "Kontrollera det användarnamn och lösenord du angav."
+msgstr "Kontrollera det anvÃ¤ndarnamn och lÃ¶senord du angav."
 
 #. Type: error
 #. Description
@@ -151,10 +159,10 @@ msgstr "Ohanterat fel"
 #: ../ppp-udeb.templates:10001
 msgid "An unidentified error happened while attempting to create a connection."
 msgstr ""
-"Ett oidentifierat fel inträffade medan ett försök till uppkoppling gjordes."
+"Ett oidentifierat fel intrÃ¤ffade medan ett fÃ¶rsÃ¶k till uppkoppling gjordes."
 
 #. Type: text
 #. Description
 #: ../ppp-udeb.templates:11001
 msgid "Please wait..."
-msgstr "Var god vänta..."
+msgstr "Var god vÃ¤nta..."

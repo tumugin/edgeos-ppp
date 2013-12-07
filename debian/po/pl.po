@@ -1,21 +1,26 @@
 # debconf templates for ppp package
 # Polish translation
-# Copyright (C) 
-# Łukasz Paździora, 2008
+# Copyright (C)
 #
 # This file is distributed under the same license as the ppp package.
 #
+# Łukasz Paździora, 2008.
+# Michał Kułach <michal.kulach@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: ppp 2.4.4rel-10\n"
-"Report-Msgid-Bugs-To: md@linux.it\n"
-"POT-Creation-Date: 2007-10-24 07:31+0200\n"
-"PO-Revision-Date: 2008-11-20 16:30+0100\n"
-"Last-Translator: Łukasz Paździora <lukpaz@gmail.com>\n"
+"Report-Msgid-Bugs-To: ppp@packages.debian.org\n"
+"POT-Creation-Date: 2012-09-02 11:02-0400\n"
+"PO-Revision-Date: 2012-09-01 01:01+0200\n"
+"Last-Translator: Michał Kułach <michal.kulach@gmail.com>\n"
 "Language-Team: Polish <debian-l10n-polish@lists.debian.org>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. Type: text
 #. Description
@@ -37,8 +42,8 @@ msgid ""
 "All network interfaces have been probed, but a PPPoE concentrator was not "
 "detected."
 msgstr ""
-"Sprawdzono wszystkie interfejsy sieciowe, ale koncentrator PPPoE nie "
-"zostałznaleziony."
+"Sprawdzono wszystkie interfejsy sieciowe, ale koncentrator PPPoE nie został "
+"znaleziony."
 
 #. Type: error
 #. Description
@@ -59,6 +64,20 @@ msgstr ""
 
 #. Type: string
 #. Description
+#: ../ppp-udeb.templates:4001
+msgid "Interface name:"
+msgstr "Nazwa interfejsu:"
+
+#. Type: string
+#. Description
+#: ../ppp-udeb.templates:4001
+msgid ""
+"Please enter the name of the network interface connected to the PPPoE modem."
+msgstr ""
+"Proszę podać nazwę interfejsu sieciowego, podłączonego do modemu PPPoE."
+
+#. Type: string
+#. Description
 #: ../ppp-udeb.templates:5001
 msgid "ISP account username:"
 msgstr "Nazwa konta użytkownika u dostawcy Internetu:"
@@ -76,8 +95,7 @@ msgstr "Proszę podać nazwę użytkownika do połączenia PPP."
 #: ../ppp-udeb.templates:5001 ../ppp-udeb.templates:6001
 msgid ""
 "This information should have been provided by your Internet Service Provider."
-msgstr ""
-"Ta informacja powinna zostać dostarczona przez Twojego dostawcę Internetu."
+msgstr "Ta informacja powinna zostać dostarczona przez dostawcę Internetu."
 
 #. Type: password
 #. Description
@@ -104,7 +122,7 @@ msgid ""
 "PPPoE networking cannot be configured because no Ethernet interface was "
 "detected."
 msgstr ""
-"Połączenie PPPoE nie może zostać skonfigurowane ponieważ nie wykryto "
+"Połączenie PPPoE nie może zostać skonfigurowane, ponieważ nie wykryto "
 "interfejsu Ethernet."
 
 #. Type: text

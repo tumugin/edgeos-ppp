@@ -1,5 +1,33 @@
 ppp (2.4.5+git20130610-2) UNRELEASED; urgency=low
 
+  [ David Prévot ]
+  * Add missing prepending underscore in templates. Closes: #686255
+
+  [ Debconf translation updates ]
+  * Chinese — China, Zhi Li.
+  * Chinese — Taiwan, Ｖ字龍.
+  * French, David Prévot.
+  * Turkish, Deniz Bahadır GÜR.
+  * Vietnamese, Nguyễn Vũ Hưng.
+  * Slovak, Slavko (Closes: #686273)
+  * Danish, Joe Hansen (Closes: #686289)
+  * Russian, Yuri Kozlov (Closes: #686354)
+  * Basque, Dooteo (Closes: #686415)
+  * Swedish, Martin Bagge. (Closes: #686443)
+  * Romanian, Andrei Popescu. (Closes: #686556)
+  * Polish, Michał Kułach. (Closes: #686603)
+  * German, Chris Leick. (Closes: #686609)
+  * Dutch, Jeroen Schot. (Closes: #686660)
+  * Portuguese, Carlos Lisboa. (Closes: #686700)
+  * Brazilian Portuguese, J. S. Júnior. (Closes: #686713)
+  * Japanese, victory. (Closes: #686721)
+  * Spanish, Rafael Ernesto Rivas, Javier Fernandez-Sanguino Peña.
+    (Closes: #686722, #686769)
+  * Czech, Michal Šimůnek. (Closes: #687183)
+
+  [ Chris Boot ]
+  * Incorporate David Prévot's debconf translation updates patch from #686255.
+
  -- Chris Boot <debian@bootc.net>  Sun, 27 Oct 2013 14:14:37 +0000
 
 ppp (2.4.5+git20130610-1) unstable; urgency=low
