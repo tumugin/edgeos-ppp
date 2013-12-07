@@ -116,6 +116,7 @@ binary-arch: install
 	dh_installinit --init-script=pppd-dns --no-start \
 		--update-rcd-params='start 38 S .'
 	dh_installpam
+	dh_lintian
 
 ifdef BUILD_UDEB
 	grep '^[a-zA-Z0-9]' debian/extra/options | grep -v '^noipx' \
