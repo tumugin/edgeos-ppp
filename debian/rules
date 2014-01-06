@@ -40,6 +40,8 @@ udebdir: .stamp-udebdir
 	perl -i -pe 's/ -DIPX_CHANGE\b//' pppd-udeb/Makefile
 	touch $@
 
+build-arch: build
+build-indep: build
 build: .stamp-build
 .stamp-build: .stamp-configure
 	dh_testdir

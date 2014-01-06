@@ -27,6 +27,10 @@ ppp (2.4.5+git20130610-2) UNRELEASED; urgency=low
 
   [ Chris Boot ]
   * Incorporate David Prévot's debconf translation updates patch from #686255.
+  * Fix lintian warnings:
+    - debian-rules-missing-recommended-target build-arch
+    - debian-rules-missing-recommended-target build-indep
+    - package-would-benefit-from-build-arch-targets
 
  -- Chris Boot <debian@bootc.net>  Sun, 27 Oct 2013 14:14:37 +0000
 
