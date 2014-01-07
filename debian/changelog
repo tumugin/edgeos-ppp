@@ -1,4 +1,4 @@
-ppp (2.4.5+git20130610-3) UNRELEASED; urgency=medium
+ppp (2.4.5+git20130610-3) unstable; urgency=medium
 
   * Revisit debian/rules and Makefile patches due to build breakage exposed by
     the addition of hardening build flags. (Closes: #734458)
@@ -9,7 +9,7 @@ ppp (2.4.5+git20130610-3) UNRELEASED; urgency=medium
       zzz_config patches due to significant Makefile changes.
     Thanks to Marco d'Itri for the bulk of the Makefile work.
 
- -- Chris Boot <debian@bootc.net>  Tue, 07 Jan 2014 17:29:45 +0000
+ -- Chris Boot <debian@bootc.net>  Tue, 07 Jan 2014 17:54:08 +0000
 
 ppp (2.4.5+git20130610-2) unstable; urgency=low
 
