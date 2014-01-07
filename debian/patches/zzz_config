@@ -19,13 +19,13 @@ Debian-specific changes.
  
  # Enable EAP SRP-SHA1 authentication (requires libsrp)
  #USE_SRP=y
-@@ -180,11 +180,9 @@ LIBS	+= -ldl
+@@ -182,11 +182,9 @@ LIBS	+= -ldl
  endif
  
  ifdef FILTER
 -ifneq ($(wildcard /usr/include/pcap-bpf.h),)
  LIBS    += -lpcap
- COMPILE_FLAGS += -DPPP_FILTER
+ CFLAGS  += -DPPP_FILTER
  endif
 -endif
  
@@ -43,8 +43,8 @@ Debian-specific changes.
 -HAVE_ZLIB=n
 +HAVE_ZLIB=y
  
- CFLAGS=-O2 -g
- COPTS= -I../include/net
+ COPTS=-O2 -g
+ CFLAGS= $(COPTS) -I../include/net
 --- a/pppd/pathnames.h
 +++ b/pppd/pathnames.h
 @@ -28,7 +28,7 @@

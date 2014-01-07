@@ -1,20 +1,17 @@
 Makefiles cleanup
 
-Factor-out $CFLAGS and $LDFLAGS to allow distributions to easily override
+Factor-out $COPTS and $LDOPTS to allow distributions to easily override
 them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
+Do not strip the installed binaries: this should be done by the
+packaging system if required.
 
 --- a/chat/Makefile.linux
 +++ b/chat/Makefile.linux
-@@ -8,24 +8,23 @@ CDEF1=	-DTERMIOS			# Use the termios str
- CDEF2=	-DSIGTYPE=void			# Standard definition
- CDEF3=	-UNO_SLEEP			# Use the usleep function
- CDEF4=	-DFNDELAY=O_NDELAY		# Old name value
--CDEFS=	$(CDEF1) $(CDEF2) $(CDEF3) $(CDEF4)
-+COPTS=	$(CDEF1) $(CDEF2) $(CDEF3) $(CDEF4)
+@@ -12,20 +12,21 @@ CDEFS=	$(CDEF1) $(CDEF2) $(CDEF3) $(CDEF
  
--COPTS=	-O2 -g -pipe
--CFLAGS=	$(COPTS) $(CDEFS)
-+CFLAGS=	-O2 -g
+ COPTS=	-O2 -g -pipe
+ CFLAGS=	$(COPTS) $(CDEFS)
++LDFLAGS=$(LDOPTS)
  
  INSTALL= install
  
@@ -25,8 +22,7 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
 +	$(CC) $(LDFLAGS) -o chat chat.o
  
  chat.o:	chat.c
--	$(CC) -c $(CFLAGS) -o chat.o chat.c
-+	$(CC) -c $(COPTS) $(CFLAGS) -o chat.o chat.c
+ 	$(CC) -c $(CFLAGS) -o chat.o chat.c
  
  install: chat
  	mkdir -p $(BINDIR) $(MANDIR)
@@ -39,25 +35,19 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
 +++ b/pppd/plugins/Makefile.linux
 @@ -1,7 +1,7 @@
  #CC	= gcc
--COPTS	= -O2 -g
--CFLAGS	= $(COPTS) -I.. -I../../include -fPIC
+ COPTS	= -O2 -g
+ CFLAGS	= $(COPTS) -I.. -I../../include -fPIC
 -LDFLAGS	= -shared
-+CFLAGS	= -O2 -g
-+COPTS	= -I.. -I../../include -fPIC
-+LDFLAGS	= 
++LDFLAGS	= $(LDOPTS)
  INSTALL	= install
  
  DESTDIR = $(INSTROOT)@DESTDIR@
-@@ -22,8 +22,11 @@ endif
- all:	$(PLUGINS)
+@@ -23,7 +23,7 @@ all:	$(PLUGINS)
  	for d in $(SUBDIRS); do $(MAKE) $(MFLAGS) -C $$d all; done
  
-+%.o: %.c
-+	$(CC) $(COPTS) $(CFLAGS) -c $<
-+
  %.so: %.c
 -	$(CC) -o $@ $(LDFLAGS) $(CFLAGS) $^
-+	$(CC) -o $@ $(LDFLAGS) -shared $(COPTS) $(CFLAGS) $^
++	$(CC) -o $@ $(LDFLAGS) -shared $(CFLAGS) $^
  
  VERSION = $(shell awk -F '"' '/VERSION/ { print $$2; }' ../patchlevel.h)
  
@@ -65,24 +55,13 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
 +++ b/pppd/plugins/pppoatm/Makefile.linux
 @@ -1,7 +1,7 @@
  #CC	= gcc
--COPTS	= -O2 -g
--CFLAGS	= $(COPTS) -I../.. -I../../../include -fPIC
+ COPTS	= -O2 -g
+ CFLAGS	= $(COPTS) -I../.. -I../../../include -fPIC
 -LDFLAGS	= -shared
-+CFLAGS	= -O2 -g
-+COPTS	= -I../.. -I../../../include -fPIC
-+LDFLAGS	= 
++LDFLAGS	= $(LDOPTS)
  INSTALL	= install
  
  #***********************************************************************
-@@ -24,7 +24,7 @@ PLUGIN_OBJS := pppoatm.o
- ifdef HAVE_LIBATM
- LIBS := -latm
- else
--CFLAGS += -I.
-+COPTS += -I.
- PLUGIN_OBJS += text2qos.o text2atm.o misc.o ans.o
- LIBS := -lresolv
- endif
 @@ -33,7 +33,7 @@ endif
  all: $(PLUGIN)
  
@@ -92,22 +71,14 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  
  install: all
  	$(INSTALL) -d -m 755 $(LIBDIR)
-@@ -43,4 +43,4 @@ clean:
- 	rm -f *.o *.so
- 
- %.o: %.c
--	$(CC) $(CFLAGS) -c -o $@ $<
-+	$(CC) $(COPTS) $(CFLAGS) -c -o $@ $<
 --- a/pppd/plugins/pppol2tp/Makefile.linux
 +++ b/pppd/plugins/pppol2tp/Makefile.linux
 @@ -1,7 +1,7 @@
  #CC	= gcc
--COPTS	= -O2 -g
--CFLAGS	= $(COPTS) -I. -I../.. -I../../../include -fPIC
+ COPTS	= -O2 -g
+ CFLAGS	= $(COPTS) -I. -I../.. -I../../../include -fPIC
 -LDFLAGS	= -shared
-+CFLAGS	= -O2 -g
-+COPTS	= -I. -I../.. -I../../../include -fPIC
-+LDFLAGS	= 
++LDFLAGS	= $(LDOPTS)
  INSTALL	= install
  
  #***********************************************************************
@@ -120,41 +91,20 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  
  install: all
  	$(INSTALL) -d -m 755 $(LIBDIR)
-@@ -26,4 +26,4 @@ clean:
- 	rm -f *.o *.so
- 
- %.o: %.c
--	$(CC) $(CFLAGS) -c -o $@ $<
-+	$(CC) $(COPTS) $(CFLAGS) -c -o $@ $<
 --- a/pppd/plugins/radius/Makefile.linux
 +++ b/pppd/plugins/radius/Makefile.linux
-@@ -12,7 +12,8 @@ VERSION = $(shell awk -F '"' '/VERSION/
+@@ -12,7 +12,9 @@ VERSION = $(shell awk -F '"' '/VERSION/
  INSTALL	= install
  
  PLUGIN=radius.so radattr.so radrealms.so
 -CFLAGS=-I. -I../.. -I../../../include -O2 -fPIC -DRC_LOG_FACILITY=LOG_DAEMON
-+CFLAGS=-g -O2
-+COPTS = -I. -I../.. -I../../../include -fPIC -DRC_LOG_FACILITY=LOG_DAEMON
++COPTS=-g -O2
++CFLAGS = $(COPTS) -I. -I../.. -I../../../include -fPIC -DRC_LOG_FACILITY=LOG_DAEMON
++LDFLAGS= $(LDOPTS)
  
  # Uncomment the next line to include support for Microsoft's
  # MS-CHAP authentication protocol.
-@@ -23,33 +24,36 @@ MPPE=y
- MAXOCTETS=y
- 
- ifdef CHAPMS
--CFLAGS += -DCHAPMS=1
-+COPTS += -DCHAPMS=1
- ifdef MPPE
--CFLAGS += -DMPPE=1
-+COPTS += -DMPPE=1
- endif
- endif
- ifdef MAXOCTETS
--CFLAGS += -DMAXOCTETS=1
-+COPTS += -DMAXOCTETS=1
- endif
- 
- all: $(PLUGIN)
+@@ -36,20 +38,20 @@ all: $(PLUGIN)
  
  install: all
  	$(INSTALL) -d -m 755 $(LIBDIR)
@@ -167,9 +117,6 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  	$(INSTALL) -c -m 444 pppd-radius.8 $(MANDIR)
  	$(INSTALL) -c -m 444 pppd-radattr.8 $(MANDIR)
  
-+%.o: %.c
-+	$(CC) $(COPTS) $(CFLAGS) -c $<
-+
  radius.so: radius.o libradiusclient.a
 -	$(CC) -o radius.so -shared radius.o libradiusclient.a
 +	$(CC) $(LDFLAGS) -o radius.so -shared radius.o libradiusclient.a
@@ -186,14 +133,12 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  	clientid.o sendserver.o lock.o util.o md5.o
 --- a/pppd/plugins/rp-pppoe/Makefile.linux
 +++ b/pppd/plugins/rp-pppoe/Makefile.linux
-@@ -25,40 +25,40 @@ INSTALL	= install
- # Version is set ONLY IN THE MAKEFILE!  Don't delete this!
- RP_VERSION=3.8p
+@@ -27,10 +27,12 @@ RP_VERSION=3.8p
  
--COPTS=-O2 -g
--CFLAGS=$(COPTS) -I../../../include '-DRP_VERSION="$(RP_VERSION)"'
-+CFLAGS=-O2 -g
-+COPTS=-I../../../include '-DRP_VERSION="$(RP_VERSION)"'
+ COPTS=-O2 -g
+ CFLAGS=$(COPTS) -I../../../include '-DRP_VERSION="$(RP_VERSION)"'
++LDFLAGS=$(LDOPTS)
++
  all: rp-pppoe.so pppoe-discovery
  
  pppoe-discovery: pppoe-discovery.o debug.o
@@ -201,12 +146,9 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
 +	$(CC) $(LDFLAGS) -o pppoe-discovery pppoe-discovery.o debug.o
  
  pppoe-discovery.o: pppoe-discovery.c
--	$(CC) $(CFLAGS) -c -o pppoe-discovery.o pppoe-discovery.c
-+	$(CC) $(COPTS) $(CFLAGS) -c -o pppoe-discovery.o pppoe-discovery.c
- 
- debug.o: debug.c
--	$(CC) $(CFLAGS) -c -o debug.o debug.c
-+	$(CC) $(COPTS) $(CFLAGS) -c -o debug.o debug.c
+ 	$(CC) $(CFLAGS) -c -o pppoe-discovery.o pppoe-discovery.c
+@@ -39,13 +41,13 @@ debug.o: debug.c
+ 	$(CC) $(CFLAGS) -c -o debug.o debug.c
  
  rp-pppoe.so: plugin.o discovery.o if.o common.o
 -	$(CC) -o rp-pppoe.so -shared plugin.o discovery.o if.o common.o
@@ -222,39 +164,22 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  
  clean:
  	rm -f *.o *.so pppoe-discovery
- 
- plugin.o: plugin.c
--	$(CC) $(CFLAGS) -I../../.. -c -o plugin.o -fPIC plugin.c
-+	$(CC) $(COPTS) $(CFLAGS) -I../../.. -c -o plugin.o -fPIC plugin.c
- 
- discovery.o: discovery.c
--	$(CC) $(CFLAGS) -I../../.. -c -o discovery.o -fPIC discovery.c
-+	$(CC) $(COPTS) $(CFLAGS) -I../../.. -c -o discovery.o -fPIC discovery.c
- 
- if.o: if.c
--	$(CC) $(CFLAGS) -I../../.. -c -o if.o -fPIC if.c
-+	$(CC) $(COPTS) $(CFLAGS) -I../../.. -c -o if.o -fPIC if.c
- 
- common.o: common.c
--	$(CC) $(CFLAGS) -I../../.. -c -o common.o -fPIC common.c
-+	$(CC) $(COPTS) $(CFLAGS) -I../../.. -c -o common.o -fPIC common.c
- 
 --- a/pppstats/Makefile.linux
 +++ b/pppstats/Makefile.linux
-@@ -10,27 +10,25 @@ PPPSTATSRCS = pppstats.c
+@@ -10,23 +10,24 @@ PPPSTATSRCS = pppstats.c
  PPPSTATOBJS = pppstats.o
  
  #CC = gcc
 -COPTS = -O
--COMPILE_FLAGS = -I../include
-+CFLAGS = -O2 -g
-+COPTS = -I../include
++COPTS = -O2 -g
+ COMPILE_FLAGS = -I../include
  LIBS =
  
  INSTALL= install
  
--CFLAGS = $(COPTS) $(COMPILE_FLAGS)
--
+ CFLAGS = $(COPTS) $(COMPILE_FLAGS)
++LDFLAGS= $(LDOPTS)
+ 
  all: pppstats
  
  install: pppstats
@@ -265,34 +190,27 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  
  pppstats: $(PPPSTATSRCS)
 -	$(CC) $(CFLAGS) -o pppstats pppstats.c $(LIBS)
-+	$(CC) $(LDFLAGS) $(COPTS) $(CFLAGS) -o pppstats pppstats.c $(LIBS)
++	$(CC) $(LDFLAGS) $(CFLAGS) -o pppstats pppstats.c $(LIBS)
  
  clean:
  	rm -f pppstats *~ #* core
- 
- depend:
--	cpp -M $(CFLAGS) $(PPPSTATSRCS) >.depend
--#	makedepend $(CFLAGS) $(PPPSTATSRCS)
-+	cpp -M $(COPTS) $(CFLAGS) $(PPPSTATSRCS) >.depend
-+#	makedepend $(COPTS) $(CFLAGS) $(PPPSTATSRCS)
 --- a/pppdump/Makefile.linux
 +++ b/pppdump/Makefile.linux
-@@ -2,20 +2,24 @@ DESTDIR = $(INSTROOT)@DESTDIR@
+@@ -2,7 +2,10 @@ DESTDIR = $(INSTROOT)@DESTDIR@
  BINDIR = $(DESTDIR)/sbin
  MANDIR = $(DESTDIR)/share/man/man8
  
 -CFLAGS= -O -I../include/net
-+CFLAGS=-O2 -g
-+COPTS= -I../include/net
++COPTS=-O2 -g
++CFLAGS= $(COPTS) -I../include/net
++LDFLAGS=$(LDOPTS)
++
  OBJS = pppdump.o bsd-comp.o deflate.o zlib.o
  
  INSTALL= install
- 
+@@ -10,12 +13,12 @@ INSTALL= install
  all:	pppdump
  
-+%.o: %.c
-+	$(CC) $(COPTS) $(CFLAGS) -c $<
-+
  pppdump: $(OBJS)
 -	$(CC) -o pppdump $(OBJS)
 +	$(CC) $(LDFLAGS) -o pppdump $(OBJS)
@@ -307,42 +225,16 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  	$(INSTALL) -c -m 444 pppdump.8 $(MANDIR)
 --- a/pppd/Makefile.linux
 +++ b/pppd/Makefile.linux
-@@ -32,7 +32,7 @@ endif
- 
- # CC = gcc
- #
--COPTS = -O2 -pipe -Wall -g
-+CFLAGS = -O2 -g
- LIBS =
- 
- # Uncomment the next 2 lines to include support for Microsoft's
-@@ -82,27 +82,26 @@ INCLUDE_DIRS= -I../include
- 
+@@ -83,6 +83,7 @@ INCLUDE_DIRS= -I../include
  COMPILE_FLAGS= -DHAVE_PATHS_H -DIPX_CHANGE -DHAVE_MMAP
  
--CFLAGS= $(COPTS) $(COMPILE_FLAGS) $(INCLUDE_DIRS) '-DDESTDIR="@DESTDIR@"'
--
- ifdef CHAPMS
--CFLAGS   += -DCHAPMS=1
-+COMPILE_FLAGS += -DCHAPMS=1
- NEEDDES=y
- PPPDOBJS += md4.o chap_ms.o
- HEADERS	+= md4.h chap_ms.h
- ifdef MSLANMAN
--CFLAGS   += -DMSLANMAN=1
-+COMPILE_FLAGS += -DMSLANMAN=1
- endif
- ifdef MPPE
--CFLAGS   += -DMPPE=1
-+COMPILE_FLAGS += -DMPPE=1
- endif
- endif
+ CFLAGS= $(COPTS) $(COMPILE_FLAGS) $(INCLUDE_DIRS) '-DDESTDIR="@DESTDIR@"'
++LDFLAGS=$(LDOPTS)
  
- # EAP SRP-SHA1
- ifdef USE_SRP
--CFLAGS	+= -DUSE_SRP -DOPENSSL -I/usr/local/ssl/include
-+COMPILE_FLAGS += -DUSE_SRP -DOPENSSL
-+INCLUDE_DIRS += -I/usr/local/ssl/include
+ ifdef CHAPMS
+ CFLAGS   += -DCHAPMS=1
+@@ -102,7 +103,7 @@ ifdef USE_SRP
+ CFLAGS	+= -DUSE_SRP -DOPENSSL -I/usr/local/ssl/include
  LIBS	+= -lsrp -L/usr/local/ssl/lib -lcrypto
  TARGETS	+= srp-entry
 -EXTRAINSTALL = $(INSTALL) -s -c -m 555 srp-entry $(BINDIR)/srp-entry
@@ -350,106 +242,7 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  MANPAGES += srp-entry.8
  EXTRACLEAN += srp-entry.o
  NEEDDES=y
-@@ -116,12 +115,12 @@ PPPDOBJS += sha1.o
- endif
- 
- ifdef HAS_SHADOW
--CFLAGS   += -DHAS_SHADOW
-+COMPILE_FLAGS += -DHAS_SHADOW
- #LIBS     += -lshadow $(LIBS)
- endif
- 
- ifneq ($(wildcard /usr/include/crypt.h),)
--CFLAGS  += -DHAVE_CRYPT_H=1
-+COMPILE_FLAGS += -DHAVE_CRYPT_H=1
- LIBS	+= -lcrypt
- endif
- 
-@@ -134,7 +133,7 @@ ifdef NEEDDES
- ifndef USE_CRYPT
- LIBS     += -ldes $(LIBS)
- else
--CFLAGS   += -DUSE_CRYPT=1
-+COMPILE_FLAGS += -DUSE_CRYPT=1
- endif
- PPPDOBJS += pppcrypt.o
- HEADERS += pppcrypt.h
-@@ -142,7 +141,7 @@ endif
- 
- # For "Pluggable Authentication Modules", see ftp.redhat.com:/pub/pam/.
- ifdef USE_PAM
--CFLAGS   += -DUSE_PAM
-+COMPILE_FLAGS += -DUSE_PAM
- LIBS     += -lpam -ldl
- endif
- 
-@@ -151,14 +150,14 @@ ifdef HAVE_MULTILINK
- 	# Multilink implies the use of TDB
- 	USE_TDB=y
- 
--	CFLAGS += -DHAVE_MULTILINK
-+	COMPILE_FLAGS += -DHAVE_MULTILINK
- 	PPPDSRCS += multilink.c
- 	PPPDOBJS += multilink.o
- endif
- 
- # TDB
- ifdef USE_TDB
--	CFLAGS += -DUSE_TDB=1
-+	COMPILE_FLAGS += -DUSE_TDB=1
- 	PPPDSRCS += tdb.c spinlock.c
- 	PPPDOBJS += tdb.o spinlock.o
- 	HEADERS += tdb.h spinlock.h
-@@ -167,11 +166,11 @@ endif
- # Lock library binary for Linux is included in 'linux' subdirectory.
- ifdef LOCKLIB
- LIBS     += -llock
--CFLAGS   += -DLOCKLIB=1
-+COMPILE_FLAGS += -DLOCKLIB=1
- endif
- 
- ifdef PLUGIN
--CFLAGS	+= -DPLUGIN
-+COMPILE_FLAGS += -DPLUGIN
- LDFLAGS	+= -Wl,-E
- LIBS	+= -ldl
- endif
-@@ -179,7 +178,7 @@ endif
- ifdef FILTER
- ifneq ($(wildcard /usr/include/pcap-bpf.h),)
- LIBS    += -lpcap
--CFLAGS  += -DPPP_FILTER
-+COMPILE_FLAGS += -DPPP_FILTER
- endif
- endif
- 
-@@ -187,20 +186,22 @@ ifdef HAVE_INET6
-      PPPDSRCS += ipv6cp.c eui64.c
-      HEADERS  += ipv6cp.h eui64.h
-      PPPDOBJS += ipv6cp.o eui64.o
--     CFLAGS   += -DINET6=1
-+     COMPILE_FLAGS += -DINET6=1
- endif
- 
- ifdef CBCP
-      PPPDSRCS += cbcp.c
-      PPPDOBJS += cbcp.o
--     CFLAGS += -DCBCP_SUPPORT
-+     COMPILE_FLAGS += -DCBCP_SUPPORT
-      HEADERS += cbcp.h
- endif
- 
- ifdef MAXOCTETS
--     CFLAGS += -DMAXOCTETS
-+     COMPILE_FLAGS += -DMAXOCTETS
- endif
- 
-+COPTS = $(COMPILE_FLAGS) $(INCLUDE_DIRS) '-DDESTDIR="@DESTDIR@"'
-+
- INSTALL= install
- 
- all: $(TARGETS)
-@@ -208,11 +209,14 @@ all: $(TARGETS)
+@@ -208,13 +209,13 @@ all: $(TARGETS)
  install: pppd
  	mkdir -p $(BINDIR) $(MANDIR)
  	$(EXTRAINSTALL)
@@ -459,9 +252,9 @@ them. Properly use $LDFLAGS when linking and $CFLAGS when compiling.
  	  chmod o-rx,u+s $(BINDIR)/pppd; fi
  	$(INSTALL) -c -m 444 pppd.8 $(MANDIR)
  
-+%.o: %.c
-+	$(CC) $(COPTS) $(CFLAGS) -c $<
-+
  pppd: $(PPPDOBJS)
- 	$(CC) $(CFLAGS) $(LDFLAGS) -o pppd $(PPPDOBJS) $(LIBS)
+-	$(CC) $(CFLAGS) $(LDFLAGS) -o pppd $(PPPDOBJS) $(LIBS)
++	$(CC) $(LDFLAGS) -o pppd $(PPPDOBJS) $(LIBS)
  
+ srp-entry:	srp-entry.c
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ srp-entry.c $(LIBS)

@@ -1,3 +1,16 @@
+ppp (2.4.5+git20130610-3) UNRELEASED; urgency=medium
+
+  * Revisit debian/rules and Makefile patches due to build breakage exposed by
+    the addition of hardening build flags. (Closes: #734458)
+    - Update debian/rules to pass COPTS/LDOPTS instead of CFLAGS/LDFLAGS.
+    - Overhaul makefiles_cleanup patch. This now makes far fewer changes to the
+      upstream Makefiles than previously.
+    - Refresh no_crypt_hack, pppdump_use_zlib, pppoatm_resolver_light and
+      zzz_config patches due to significant Makefile changes.
+    Thanks to Marco d'Itri for the bulk of the Makefile work.
+
+ -- Chris Boot <debian@bootc.net>  Tue, 07 Jan 2014 17:29:45 +0000
+
 ppp (2.4.5+git20130610-2) unstable; urgency=low
 
   [ David Prévot ]

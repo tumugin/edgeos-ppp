@@ -10,16 +10,15 @@ and encourage users interested in the complete features to link the
 plugin with the real libatm. I really doubt anybody cares, anyway.
 
 
-diff -ruNp ppp-2.4.3.orig/pppd/plugins/pppoatm/Makefile.linux ppp-2.4.3/pppd/plugins/pppoatm/Makefile.linux
---- ppp-2.4.3.orig/pppd/plugins/pppoatm/Makefile.linux	2004-11-14 02:12:10.000000000 +0100
-+++ ppp-2.4.3/pppd/plugins/pppoatm/Makefile.linux	2005-02-25 19:19:08.022622528 +0100
+--- a/pppd/plugins/pppoatm/Makefile.linux
++++ b/pppd/plugins/pppoatm/Makefile.linux
 @@ -25,9 +25,13 @@ ifdef HAVE_LIBATM
  LIBS := -latm
  else
- COPTS += -I.
+ CFLAGS += -I.
 +PLUGIN_OBJS += text2atm.o
 +ifdef USE_FULL_ATM_RESOLVER
-+COPTS += -DUSE_FULL_ATM_RESOLVER
++CFLAGS += -DUSE_FULL_ATM_RESOLVER
  PLUGIN_OBJS += text2qos.o text2atm.o misc.o ans.o
  LIBS := -lresolv
  endif
@@ -27,10 +26,9 @@ diff -ruNp ppp-2.4.3.orig/pppd/plugins/pppoatm/Makefile.linux ppp-2.4.3/pppd/plu
  
  #*********
  all: $(PLUGIN)
-diff -ruNp ppp-2.4.3.orig/pppd/plugins/pppoatm/pppoatm.c ppp-2.4.3/pppd/plugins/pppoatm/pppoatm.c
---- ppp-2.4.3.orig/pppd/plugins/pppoatm/pppoatm.c	2005-02-25 19:19:13.859735152 +0100
-+++ ppp-2.4.3/pppd/plugins/pppoatm/pppoatm.c	2005-02-25 19:17:36.784492832 +0100
-@@ -144,8 +144,12 @@ static int connect_pppoatm(void)
+--- a/pppd/plugins/pppoatm/pppoatm.c
++++ b/pppd/plugins/pppoatm/pppoatm.c
+@@ -142,8 +142,12 @@ static int connect_pppoatm(void)
  	qos.txtp.traffic_class = qos.rxtp.traffic_class = ATM_UBR;
  	/* TODO: support simplified QoS setting */
  	if (qosstr != NULL)
@@ -43,9 +41,8 @@ diff -ruNp ppp-2.4.3.orig/pppd/plugins/pppoatm/pppoatm.c ppp-2.4.3/pppd/plugins/
  	qos.txtp.max_sdu = lcp_allowoptions[0].mru + pppoatm_overhead();
  	qos.rxtp.max_sdu = lcp_wantoptions[0].mru + pppoatm_overhead();
  	qos.aal = ATM_AAL5;
-diff -ruNp ppp-2.4.3.orig/pppd/plugins/pppoatm/text2atm.c ppp-2.4.3/pppd/plugins/pppoatm/text2atm.c
---- ppp-2.4.3.orig/pppd/plugins/pppoatm/text2atm.c	2004-11-06 07:55:28.000000000 +0100
-+++ ppp-2.4.3/pppd/plugins/pppoatm/text2atm.c	2005-02-25 19:17:36.552528096 +0100
+--- a/pppd/plugins/pppoatm/text2atm.c
++++ b/pppd/plugins/pppoatm/text2atm.c
 @@ -72,6 +72,7 @@ static int try_pvc(const char *text,stru
  }
  

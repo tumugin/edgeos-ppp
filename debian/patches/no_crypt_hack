@@ -17,15 +17,15 @@ for dialout.
  	    }
 --- a/pppd/Makefile.linux
 +++ b/pppd/Makefile.linux
-@@ -119,10 +119,14 @@ COMPILE_FLAGS += -DHAS_SHADOW
+@@ -121,10 +121,14 @@ CFLAGS   += -DHAS_SHADOW
  #LIBS     += -lshadow $(LIBS)
  endif
  
 +ifdef NO_CRYPT_HACK
-+COMPILE_FLAGS += -DNO_CRYPT_HACK
++CFLAGS += -DNO_CRYPT_HACK
 +else
  ifneq ($(wildcard /usr/include/crypt.h),)
- COMPILE_FLAGS += -DHAVE_CRYPT_H=1
+ CFLAGS  += -DHAVE_CRYPT_H=1
  LIBS	+= -lcrypt
  endif
 +endif
