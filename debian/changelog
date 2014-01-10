@@ -9,6 +9,15 @@ ppp (2.4.5+git20130610-4) UNRELEASED; urgency=medium
     Thanks to Shawn Landden for providing a patch.
   * Add LSB Description header to init script.
   * Make init script source /lib/lsb/init-functions for systemd compatibility.
+  * Override a number of lintian tags:
+    - init.d-script-does-not-implement-optional-option etc/init.d/pppd-dns
+        status
+    - non-standard-dir-perm etc/chatscripts/ and etc/ppp/peers/
+    - package-contains-readme-for-other-platform-or-distro
+        usr/share/doc/ppp/README.win9x
+    - setuid-binary usr/sbin/pppd
+    - debian-watch-may-check-gpg-signature
+    See the lintian overrides files for reasoning.
 
  -- Chris Boot <debian@bootc.net>  Fri, 10 Jan 2014 13:02:59 +0000
 
