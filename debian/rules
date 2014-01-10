@@ -113,8 +113,7 @@ binary-arch: install
 	dh_installman debian/extra/pon.1 debian/extra/pppoe-discovery.8
 	dh_link
 	dh_installlogrotate
-	dh_installinit --init-script=pppd-dns --no-start \
-		--update-rcd-params='start 38 S .'
+	dh_installinit --init-script=pppd-dns --no-start
 	dh_installpam
 	dh_lintian
 
