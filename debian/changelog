@@ -1,3 +1,9 @@
+ppp (2.4.5+git20130610-4) UNRELEASED; urgency=medium
+
+  * 
+
+ -- Chris Boot <debian@bootc.net>  Fri, 10 Jan 2014 13:02:59 +0000
+
 ppp (2.4.5+git20130610-3) unstable; urgency=medium
 
   * Revisit debian/rules and Makefile patches due to build breakage exposed by
