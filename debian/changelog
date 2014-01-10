@@ -1,6 +1,7 @@
 ppp (2.4.5+git20130610-4) UNRELEASED; urgency=medium
 
   * Remove obsolete --update-rcd-params from dh_installinit. (Closes: #727162)
+  * Remove obsolete Build-Depends on quilt.
 
  -- Chris Boot <debian@bootc.net>  Fri, 10 Jan 2014 13:02:59 +0000
 
