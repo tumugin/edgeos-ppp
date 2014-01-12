@@ -22,6 +22,9 @@ ppp (2.4.5+git20130610-4) UNRELEASED; urgency=medium
     - Add debian/patches/ppp-2.4.2-ifname.diff based on openSUSE patch.
   * Fix a potential buffer overflow in the radius plugin:
     - Add debian/patches/ppp-2.4.4-strncatfix.patch from openSUSE.
+  * Update debian/copyright:
+    - Add myself to the list of maintainers
+    - Change reference to GPL symlink license to GPL-2
 
  -- Chris Boot <debian@bootc.net>  Fri, 10 Jan 2014 13:02:59 +0000
 

@@ -5,7 +5,8 @@ Alvar Bray <alvar@debian.org>, Christoph Lameter <clameter@debian.org>,
 Philip Hands <phil@hands.com>, Michael Beattie <mjb@debian.org> and
 Russell Coker <russell@coker.com.au>.
 
-It is currently maintained by Marco d'Itri <md@linux.it>.
+It is currently maintained by Marco d'Itri <md@linux.it>
+and Chris Boot <debian@bootc.net>.
 
 Original sources were obtained from:
   git://ozlabs.org/~paulus/ppp.git
@@ -245,8 +246,8 @@ and they are:
    Copyright (C) Paul `Rusty' Russell              2000
    Copyright (C) Jeremy Allison                    2000-2003
 
-On Debian systems, the complete text of the GNU General Public License
-can be found in `/usr/share/common-licenses/GPL'.
+On Debian systems, the complete text of the GNU General Public License version 2
+can be found in `/usr/share/common-licenses/GPL-2'.
 
 pppd/plugins/rp-pppoe/* is:
 
