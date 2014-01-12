@@ -2,6 +2,11 @@ ppp (2.4.5+git20130610-4) UNRELEASED; urgency=medium
 
   * Remove obsolete --update-rcd-params from dh_installinit. (Closes: #727162)
   * Remove obsolete Build-Depends on quilt.
+  * Add systemd service file for ppp-dns: (Closes: #716864)
+    - Build-Depend on dh-systemd
+    - Use dh_installinit --name instead of --init-script
+    - Add dh_systemd_enable and dh_systemd_start to debian/rules
+    Thanks to Shawn Landden for providing a patch.
 
  -- Chris Boot <debian@bootc.net>  Fri, 10 Jan 2014 13:02:59 +0000
 
