@@ -24,6 +24,7 @@ setenv_call_file
 
 ipv6-accept-remote
 ppp-2.4.2-ifname.diff
+ppp-2.4.4-strncatfix.patch
 
 # debian-specific
 010_scripts_README.diff

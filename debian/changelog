@@ -20,6 +20,8 @@ ppp (2.4.5+git20130610-4) UNRELEASED; urgency=medium
     See the lintian overrides files for reasoning.
   * Add support for arbitrary interface naming: (Closes: #458646)
     - Add debian/patches/ppp-2.4.2-ifname.diff based on openSUSE patch.
+  * Fix a potential buffer overflow in the radius plugin:
+    - Add debian/patches/ppp-2.4.4-strncatfix.patch from openSUSE.
 
  -- Chris Boot <debian@bootc.net>  Fri, 10 Jan 2014 13:02:59 +0000
 
