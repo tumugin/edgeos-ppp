@@ -6,10 +6,11 @@
 # Default-Start:     S
 # Default-Stop:
 # Short-Description: Restore resolv.conf if the system crashed.
+# Description:       Restore /etc/resolv.conf if the system crashed before the
+#                    ppp link was shut down.
 ### END INIT INFO
-#
-# Restore /etc/resolv.conf if the system crashed before the ppp link
-# was shut down.
+
+. /lib/lsb/init-functions
 
 case "$1" in
   start) ;;
