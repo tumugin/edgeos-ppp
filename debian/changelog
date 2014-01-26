@@ -26,6 +26,8 @@ ppp (2.4.5+git20130610-4) UNRELEASED; urgency=medium
     - Add myself to the list of maintainers
     - Change reference to GPL symlink license to GPL-2
   * Update Standards-Version to 3.9.5 (no changes required).
+  * Refresh debian/patches/cifdefroute.dif from OpenSUSE (Closes: #425163) and
+    add patch header.
 
  -- Chris Boot <debian@bootc.net>  Fri, 10 Jan 2014 13:02:59 +0000
 
