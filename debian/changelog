@@ -1,6 +1,9 @@
 ppp (2.4.6-1) UNRELEASED; urgency=medium
 
   * New upstream release. (Closes: #718873)
+  * Enable GPG signature checking for uscan:
+    - Add pgpsigurlmangle option to debian/watch
+    - Add debian/upstream/signing-key.asc
 
  -- Chris Boot <debian@bootc.net>  Sun, 16 Feb 2014 10:48:24 +0000
 
