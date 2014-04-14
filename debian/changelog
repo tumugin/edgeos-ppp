@@ -4,6 +4,7 @@ ppp (2.4.6-1) unstable; urgency=medium
   * Enable GPG signature checking for uscan:
     - Add pgpsigurlmangle option to debian/watch
     - Add debian/upstream/signing-key.asc
+    - Remove linitian override for debian-watch-may-check-gpg-signature
 
  -- Chris Boot <debian@bootc.net>  Sun, 13 Apr 2014 23:22:19 +0100
 
