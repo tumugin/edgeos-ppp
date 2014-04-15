@@ -2,6 +2,7 @@ ppp (2.4.6-2) UNRELEASED; urgency=medium
 
   * d/rules: Fix ppp-udeb module path by using a shell expression for PPPDDIR.
   * Update Breaks for network-manager to (<< 0.9.8.8-7). (Closes: #744814)
+  * Update lintian overrides to account for changed plugin path.
 
  -- Chris Boot <debian@bootc.net>  Tue, 15 Apr 2014 07:46:51 +0100
 
