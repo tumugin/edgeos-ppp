@@ -8,7 +8,8 @@ BUILD_UDEB := 1
 D := $(CURDIR)/debian/ppp
 
 # plugin ABI version, part of the directory name
-PPPDDIR := 2.4.5
+# shell expression from pppd/plugins/Makefile.linux
+PPPDDIR := $(shell awk -F '"' '/VERSION/ { print $$2; }' $(CURDIR)/pppd/patchlevel.h)
 
 
 ifdef BUILD_UDEB
