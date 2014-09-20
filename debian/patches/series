@@ -1,3 +1,14 @@
+# cherry-picked from ppp-2.4.7 upstream
+ppp-2.4.7-001-pppd-Separate-IPv6-handling-for-sifup-sifdown.patch
+ppp-2.4.7-002-pppol2tp-Connect-up-down-events-to-notifiers-and-add.patch
+ppp-2.4.7-003-pppd-Add-declarations-to-eliminate-compile-warnings.patch
+ppp-2.4.7-004-pppd-Eliminate-some-unnecessary-ifdefs.patch
+ppp-2.4.7-005-radius-Fix-realms-config-file-option.patch
+ppp-2.4.7-006-pppd-Eliminate-potential-integer-overflow-in-option-.patch
+ppp-2.4.7-007-pppd-Eliminate-memory-leak-with-multiple-instances-o.patch
+ppp-2.4.7-008-pppd-Fix-a-stack-variable-overflow-in-MSCHAP-v2.patch
+ppp-2.4.7-009-winbind-plugin-Add-DMPPE-1-to-eliminate-compiler-war.patch
+
 # to be merged upstream
 adaptive_echos
 makefiles_cleanup

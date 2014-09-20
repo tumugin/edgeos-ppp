@@ -1,6 +1,18 @@
 ppp (2.4.6-3) UNRELEASED; urgency=medium
 
-  * 
+  * Cherry-pick patches from 2.4.7 upstream release. These are 9/11 patches
+    from the 2.4.7 upstream release of PPP, including a fix for CVE-2014-3158.
+    The two patches left out were not imported to preserve ABI stability.
+    - ppp-2.4.7-001-pppd-Separate-IPv6-handling-for-sifup-sifdown.patch
+    - ppp-2.4.7-002-pppol2tp-Connect-up-down-events-to-notifiers-and-add.patch
+    - ppp-2.4.7-003-pppd-Add-declarations-to-eliminate-compile-warnings.patch
+    - ppp-2.4.7-004-pppd-Eliminate-some-unnecessary-ifdefs.patch
+    - ppp-2.4.7-005-radius-Fix-realms-config-file-option.patch
+    - ppp-2.4.7-006-pppd-Eliminate-potential-integer-overflow-in-option-.patch
+    - ppp-2.4.7-007-pppd-Eliminate-memory-leak-with-multiple-instances-o.patch
+    - ppp-2.4.7-008-pppd-Fix-a-stack-variable-overflow-in-MSCHAP-v2.patch
+    - ppp-2.4.7-009-winbind-plugin-Add-DMPPE-1-to-eliminate-compiler-war.patch
+  * Refresh debian/patches/cifdefroute.dif
 
  -- Chris Boot <debian@bootc.net>  Sat, 20 Sep 2014 09:36:02 +0100
 
