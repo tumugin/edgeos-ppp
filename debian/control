@@ -6,7 +6,7 @@ Maintainer: Marco d'Itri <md@linux.it>
 Uploaders: Chris Boot <debian@bootc.net>
 Build-Depends: debhelper (>= 5), libpcap0.8-dev, libpam0g-dev, zlib1g-dev,
  dh-systemd
-Standards-Version: 3.9.5
+Standards-Version: 3.9.6
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/pkg-ppp.git
 Vcs-Git: git://anonscm.debian.org/collab-maint/pkg-ppp.git
 

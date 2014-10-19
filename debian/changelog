@@ -1,8 +1,10 @@
-ppp (2.4.6-3) UNRELEASED; urgency=medium
+ppp (2.4.6-3) unstable; urgency=high
 
-  * Cherry-pick patches from 2.4.7 upstream release. These are 9/11 patches
-    from the 2.4.7 upstream release of PPP, including a fix for CVE-2014-3158.
-    The two patches left out were not imported to preserve ABI stability.
+  * Urgency high due to fix for CVE-2014-3158.
+  * Cherry-pick patches from 2.4.7 upstream release. These are 9 of 11 patches
+    in the 2.4.7 upstream release of PPP, including the fix for CVE-2014-3158.
+    The two patches left out were not imported in order to preserve ABI
+    stability. (Closes: #762789)
     - ppp-2.4.7-001-pppd-Separate-IPv6-handling-for-sifup-sifdown.patch
     - ppp-2.4.7-002-pppol2tp-Connect-up-down-events-to-notifiers-and-add.patch
     - ppp-2.4.7-003-pppd-Add-declarations-to-eliminate-compile-warnings.patch
@@ -13,8 +15,9 @@ ppp (2.4.6-3) UNRELEASED; urgency=medium
     - ppp-2.4.7-008-pppd-Fix-a-stack-variable-overflow-in-MSCHAP-v2.patch
     - ppp-2.4.7-009-winbind-plugin-Add-DMPPE-1-to-eliminate-compiler-war.patch
   * Refresh debian/patches/cifdefroute.dif
+  * Update Standards-Version to 3.9.6 (no changes required).
 
- -- Chris Boot <debian@bootc.net>  Sat, 20 Sep 2014 09:36:02 +0100
+ -- Chris Boot <debian@bootc.net>  Sun, 19 Oct 2014 10:47:59 +0100
 
 ppp (2.4.6-2) unstable; urgency=medium
 
