@@ -1,3 +1,16 @@
+ppp (2.4.6-3.1) unstable; urgency=high
+
+  * Non-maintainer upload.
+  * Urgency high due to fix for DoS vulnerability.
+  * Fix buffer overflow in rc_mksid().
+    The function converts the PID of pppd to hex to generate a pseudo-unique
+    string. If the process id is bigger than 65535 (FFFF), its hex
+    representation will be longer than 4 characters, resulting in a buffer
+    overflow. This bug can be exploited to cause a remote DoS.
+    (Closes: #782450)
+
+ -- Emanuele Rocca <ema@debian.org>  Tue, 14 Apr 2015 08:18:06 +0200
+
 ppp (2.4.6-3) unstable; urgency=high
 
   * Urgency high due to fix for CVE-2014-3158.
