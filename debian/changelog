@@ -2,6 +2,7 @@ ppp (2.4.7-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * Remove all of the patches cherry-picked from 2.4.7 upstream.
+  * Update lintian overrides to account for changed plugin path.
 
  -- Chris Boot <debian@bootc.net>  Tue, 12 May 2015 20:52:41 +0100
 
