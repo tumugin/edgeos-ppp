@@ -12,6 +12,7 @@ ppp (2.4.7-1) UNRELEASED; urgency=medium
     - Set debian/compat to 9.
     - Bump Build-Depends on debhelper to >= 9~.
     - Rewrite debian/rules.
+    - Use ppp.manpages rather than overriding dh_installman.
 
  -- Chris Boot <debian@bootc.net>  Tue, 12 May 2015 20:52:41 +0100
 
