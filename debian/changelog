@@ -15,6 +15,7 @@ ppp (2.4.7-1) UNRELEASED; urgency=medium
     - Use ppp.manpages rather than overriding dh_installman.
     - Use *.install files rather than copying files; move files around in
       debian/extra to make this clearer.
+    - Use dh_bash-completion to install pon completion.
 
  -- Chris Boot <debian@bootc.net>  Tue, 12 May 2015 20:52:41 +0100
 
