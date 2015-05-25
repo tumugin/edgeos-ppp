@@ -17,6 +17,7 @@ ppp (2.4.7-1) UNRELEASED; urgency=medium
       debian/extra to make this clearer.
     - Use dh_bash-completion to install pon completion.
     - Use ppp.examples rather than calling dh_installexamples ourselves.
+  * Remove some very old unused patches from debian/extra/PATCHES.
 
  -- Chris Boot <debian@bootc.net>  Tue, 12 May 2015 20:52:41 +0100
 
