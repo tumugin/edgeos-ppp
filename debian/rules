@@ -7,6 +7,13 @@
 # Activate full hardening build flags minus PIE which breaks plugins
 export DEB_BUILD_MAINT_OPTIONS := hardening=+all,-pie
 
+## http://wiki.debian.org/onlyjob/get-orig-source
+PKD  = $(abspath $(dir $(MAKEFILE_LIST)))
+PKG  = $(shell dpkg-parsechangelog -l$(PKD)/changelog --show-field=Source)
+VER ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog --show-field=Version | \
+	perl -ne 'print $$1 if m{^(?:\d+:)?(\d.*)(?:\-\d+.*)$$};')
+##
+
 DIR_PPP := $(CURDIR)/debian/ppp
 DIR_PPP_DEV := $(CURDIR)/debian/ppp-dev
 
@@ -102,6 +109,7 @@ override_dh_fixperms-arch:
 	chmod 4754 $(DIR_PPP)/usr/sbin/pppd
 	chmod 2750 $(DIR_PPP)/etc/ppp/peers/ $(DIR_PPP)/etc/chatscripts/
 
-get-orig-source:
-	cd $(dir $(firstword $(MAKEFILE_LIST)))../ && \
-	uscan --rename --force-download --watchfile debian/watch --destdir $(CURDIR)
+## http://wiki.debian.org/onlyjob/get-orig-source
+get-orig-source: $(info I: $(PKG)_$(VER))
+	@echo "# Downloading..."
+	uscan --noconf --verbose --rename --destdir=$(CURDIR) --check-dirname-level=0 --force-download --download-version $(VER) $(PKD)
