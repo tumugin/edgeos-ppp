@@ -60,7 +60,7 @@ override_dh_auto_build-arch: changelog-from-README
 		COPTS="$(CFLAGS) $(CPPFLAGS) -Os -fomit-frame-pointer" \
 		LDOPTS="$(LDFLAGS)" \
 		$(UDEB_MAKEOPTS)
-	dh_auto_build -Dpppd-udeb/plugins \
+	dh_auto_build -Dpppd-udeb/plugins -- \
 		COPTS="$(CFLAGS) $(CPPFLAGS) -Os -fomit-frame-pointer" \
 		LDOPTS="$(LDFLAGS)" \
 		SUBDIRS="$(UDEB_PLUGIN_DIRS)" PLUGINS=
