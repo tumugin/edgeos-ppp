@@ -1,4 +1,4 @@
-ppp (2.4.7-1) UNRELEASED; urgency=medium
+ppp (2.4.7-1+1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * Remove all of the patches cherry-picked from 2.4.7 upstream.
@@ -20,6 +20,15 @@ ppp (2.4.7-1) UNRELEASED; urgency=medium
   * Remove some very old unused patches from debian/extra/PATCHES.
   * Update debian/watch (new upstream download URL) and debian/rules
     get-orig-source target.
+  * Introduce ABI tracking to help packages that build plugins:
+    - Introduce a new ABI version field to the package version number.
+    - Document the version numbering scheme in README.source.
+    - Add dh_ppp script, 'ppp' debhelper addon and /usr/share/ppp-dev/substvars
+      file to help generate Depends or Breaks lines.
+    - Document the debhelper tools in ppp-dev's README.Debian.
+    - At build time, make sure the package's upstream version matches the
+      version in pppd/patchlevel.h, and make sure there is an ABI revision in
+      the package version.
 
  -- Chris Boot <debian@bootc.net>  Tue, 12 May 2015 20:52:41 +0100
 

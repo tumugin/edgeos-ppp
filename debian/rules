@@ -20,6 +20,17 @@ DIR_PPP_DEV := $(CURDIR)/debian/ppp-dev
 TMP_PPP := $(CURDIR)/debian/tmp-ppp
 TMP_UDEB := $(CURDIR)/debian/tmp-udeb
 
+PPP_PLUGIN_ABI := $(shell awk -F '"' '/VERSION/ { print $$2; }' \
+	$(CURDIR)/pppd/patchlevel.h)
+VERSION_UPSTREAM := $(shell dpkg-parsechangelog -l$(PKD)/changelog \
+	--show-field=Version | \
+	perl -ne 'print $$1 if m{^(?:\d+:)?(\d.*)(?:\-\d+.*)$$};')
+VERSION_DEBIAN := $(shell dpkg-parsechangelog -l$(PKD)/changelog \
+	--show-field=Version | \
+	perl -ne 'print $$1 if m{^(?:\d+:)?(?:\d.*)\-(\d+.*)$$};')
+VERSION_ABI_PART := $(shell echo "$(VERSION_DEBIAN)" | \
+	perl -ne 'print $$1 if m{^(^\d+)\+};')
+
 UDEB_MAKEOPTS := \
 	CHAPMS= USE_CRYPT= NO_CRYPT_HACK=1 MPPE= \
 	FILTER= HAVE_MULTILINK= USE_TDB= \
@@ -31,8 +42,29 @@ UDEB_PLUGIN_DIRS := pppoatm rp-pppoe
 %:
 	dh $@ --with bash-completion,systemd
 
+override_dh_testdir:
+	dh_testdir
+	if [ "$(PPP_PLUGIN_ABI)" != "$(VERSION_UPSTREAM)" ]; then \
+	  echo; echo "**********"; \
+	  echo "VERSION in pppd/patchlevel.h must match upstream version."; \
+	  echo "Upstream version is '$(VERSION_UPSTREAM)'"; \
+	  echo "VERSION is '$(PPP_PLUGIN_ABI)'"; \
+	  echo "Aborting the build."; \
+	  echo "**********"; echo; \
+	  exit 1; \
+	fi
+	if [ -z "$(VERSION_ABI_PART)" ]; then \
+	  echo; echo "**********"; \
+	  echo "No ABI component found in the Debian revision field."; \
+	  echo "Please see debian/README.source for more information."; \
+	  echo "Aborting the build."; \
+	  echo "**********"; echo; \
+	  exit 1; \
+	fi
+
 override_dh_auto_clean:
-	rm -rf pppd-udeb changelog-from-README $(TMP_PPP) $(TMP_UDEB)
+	rm -rf pppd-udeb changelog-from-README $(TMP_PPP) $(TMP_UDEB) \
+		debian/extra/dh_ppp.1p
 	[ ! -f Makefile ] || $(MAKE) dist-clean
 
 override_dh_auto_configure:
@@ -66,6 +98,8 @@ override_dh_auto_build-arch: changelog-from-README
 		SUBDIRS="$(UDEB_PLUGIN_DIRS)" PLUGINS=
 
 override_dh_auto_build-indep: changelog-from-README
+	pod2man --section=1p --utf8 debian/extra/dh_ppp \
+		debian/extra/dh_ppp.1p
 
 override_dh_auto_install-arch:
 	dh_auto_install --destdir=$(TMP_PPP)/usr/
@@ -79,6 +113,9 @@ override_dh_auto_install-arch:
 
 override_dh_auto_install-indep:
 	$(MAKE) install-devel DESTDIR=$(DIR_PPP_DEV)/usr/
+	mkdir -p $(DIR_PPP_DEV)/usr/share/ppp-dev
+	$(PKD)/gen_substvars_dev $(VERSION_UPSTREAM) $(VERSION_ABI_PART) \
+	  > $(DIR_PPP_DEV)/usr/share/ppp-dev/substvars
 
 override_dh_installchangelogs:
 	dh_installchangelogs changelog-from-README
@@ -98,6 +135,10 @@ override_dh_installinit:
 
 override_dh_systemd_start:
 	dh_systemd_start --name=pppd-dns --no-start
+
+override_dh_perl:
+	dh_perl -d --package=ppp-dev
+	dh_perl --no-package=ppp-dev
 
 override_dh_fixperms-arch:
 	dh_fixperms

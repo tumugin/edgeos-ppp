@@ -1,9 +1,65 @@
-# How to create a snapshot from git:
-#
-# mkdir GIT
-# git clone git://ozlabs.org/~paulus/ppp.git
-# cd ..
-#
-# rsync --delete --archive --verbose GIT/ppp/ ppp-2.4.5~$(date +%Y%m%d).orig/ --exclude=.git
-# cp -a ppp-2.4.5~$(date +%Y%m%d).orig/ ppp-2.4.5~$(date +%Y%m%d)/
-#
+README.source for ppp
+=====================
+
+This is a pretty standard 3.0 (quilt) format package, using debhelper 9. There
+are, however, some gotchas that people considring NMUs or other changes must
+take into account:
+
+- The package's version number must follow a particular format. See *Version
+  Number* below.
+
+- There are several packages that use ppp-dev to build plugins that may be
+  loaded into pppd. When adding patches you must be very careful about not
+  breaking ABI compatibility unnecessarily.
+
+- If you must break ABI compatibility without uploading a new upstream release,
+  you must bump the ABI tag. See *Version Number* below.
+
+- If you are uploading a new upstream release *or* changing the ABI tag in the
+  version number, you will effectively trigger a transition. A number of
+  depending packages will need to be rebuilt and the transition will need to be
+  managed properly.
+
+Version Number
+--------------
+
+Debian Policy §5.6.12 states that there are three parts to a version number of
+a package: epoch, upstream_version and debian_revision. For the ppp package the
+epoch is currently unused and the upstream_version matches the upstream ppp
+package version as you would expect. The debian_revision, however, is special.
+
+Upstream ppp packages cause deliberate ABI breaks with every minor release.
+This happens both because the default path which plugins are loaded from
+contains the pppd version number, and because plugins should contain a
+pppd_version string that matches the pppd version number (which pppd checks at
+plugin load). Patches added to ppp in Debian may also silently change the ABI
+that plugins expect (e.g. by changing function signatures or names, or changing
+structure elements), so we need some additional means to track this.
+
+In order to handle this in as graceful a way as possible, the debian_revision
+incorporates an ABI revision field. This field is used to generate Depends or
+Breaks entries for packages that build plugins for pppd, and must be present
+or the build will fail.
+
+There is currently no automatic tracking of the ABI, so manual care and
+attention is required when making changes.
+
+The version of the ppp package looks like::
+
+  2.4.7-1+1
+  +-+-+ | |
+    |   | +--> Usual debian revision field
+    |   +----> ABI version field
+    +--------> Usual upstream version field
+
+Essentially the debian_revision field is followed immediately by the ABI
+revision number, then a plus (+), then what would normally be included in the
+debian_revision in any other package.
+
+The ABI revision number must be an integer. Its value starts at one (1) and
+must be incremented if the ABI changes without the upstream_version changing.
+If the upstream_version field changes, the ABI version should be reset to 1.
+
+If you are uploading an NMU and are confident you are not changing the ABI,
+simply add your tag to the end of the version number as usual. The same applies
+for security/stable updates and backports, too.
