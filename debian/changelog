@@ -1,4 +1,4 @@
-ppp (2.4.7-1+1) UNRELEASED; urgency=medium
+ppp (2.4.7-1+1~exp1) experimental; urgency=medium
 
   * New upstream release.
   * Remove all of the patches cherry-picked from 2.4.7 upstream.
@@ -30,8 +30,9 @@ ppp (2.4.7-1+1) UNRELEASED; urgency=medium
       the package version.
   * Install pon/poff bash_completion file to
     /usr/share/bash-completion/completions.
+  * Upload to experimental.
 
- -- Chris Boot <debian@bootc.net>  Tue, 12 May 2015 20:52:41 +0100
+ -- Chris Boot <debian@bootc.net>  Fri, 06 Nov 2015 15:32:25 +0000
 
 ppp (2.4.6-3.1) unstable; urgency=high
 
