@@ -40,7 +40,7 @@ UDEB_PLUGIN_DIRS := pppoatm rp-pppoe
 
 ##############################################################################
 %:
-	dh $@ --with bash-completion,systemd
+	dh $@ --with systemd
 
 override_dh_testdir:
 	dh_testdir
@@ -110,6 +110,8 @@ override_dh_auto_install-arch:
 		dh_auto_install -Dpppd-udeb/plugins/$$DIR \
 			--destdir=$(TMP_UDEB)/usr/; \
 	done
+
+	cp debian/extra/pon.completion $D/etc/bash_completion.d/pon
 
 override_dh_auto_install-indep:
 	$(MAKE) install-devel DESTDIR=$(DIR_PPP_DEV)/usr/

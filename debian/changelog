@@ -15,7 +15,6 @@ ppp (2.4.7-1+1) UNRELEASED; urgency=medium
     - Use ppp.manpages rather than overriding dh_installman.
     - Use *.install files rather than copying files; move files around in
       debian/extra to make this clearer.
-    - Use dh_bash-completion to install pon completion.
     - Use ppp.examples rather than calling dh_installexamples ourselves.
   * Remove some very old unused patches from debian/extra/PATCHES.
   * Update debian/watch (new upstream download URL) and debian/rules
