@@ -1,4 +1,3 @@
-etc/bash_completion.d/
 etc/ppp/peers/
 etc/chatscripts/
 etc/ppp/ip-up.d/

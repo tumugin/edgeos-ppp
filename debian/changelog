@@ -28,6 +28,8 @@ ppp (2.4.7-1+1) UNRELEASED; urgency=medium
     - At build time, make sure the package's upstream version matches the
       version in pppd/patchlevel.h, and make sure there is an ABI revision in
       the package version.
+  * Install pon/poff bash_completion file to
+    /usr/share/bash-completion/completions.
 
  -- Chris Boot <debian@bootc.net>  Tue, 12 May 2015 20:52:41 +0100
 

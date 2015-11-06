@@ -12,6 +12,8 @@ debian/extra/plog			usr/bin/
 debian/extra/poff			usr/bin/
 debian/extra/pon			usr/bin/
 
+debian/extra/bash_completion/pon	usr/share/bash-completion/completions/
+
 debian/extra/chap-secrets		usr/share/ppp/
 debian/extra/pap-secrets		usr/share/ppp/
 debian/extra/provider.chatscript	usr/share/ppp/
@@ -20,3 +22,4 @@ debian/extra/provider.peer		usr/share/ppp/
 debian/tmp-ppp/usr/lib/pppd/*		usr/lib/pppd/
 debian/tmp-ppp/usr/sbin/*		usr/sbin/
 debian/tmp-ppp/usr/share/man/*		usr/share/man/
+
