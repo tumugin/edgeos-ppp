@@ -1,3 +1,10 @@
+ppp (2.4.7-1+1~exp2) experimental; urgency=medium
+
+  * Add a --plugin-dir option to dh_ppp that can be used to obtain the path to
+    the ppp plugin directory.
+
+ -- Chris Boot <debian@bootc.net>  Thu, 19 Nov 2015 13:59:17 +0000
+
 ppp (2.4.7-1+1~exp1) experimental; urgency=medium
 
   * New upstream release.

@@ -13,4 +13,5 @@ PKG="ppp"
 cat <<EOF
 ${PKG}:Depends=${PKG} (>= ${UPSTREAM}-${ABI}+~), ${PKG} (<< ${UPSTREAM}-${ABI_NEXT}~)
 ${PKG}:Breaks=${PKG} (<< ${UPSTREAM}-${ABI}+~), ${PKG} (>= ${UPSTREAM}-${ABI_NEXT}~)
+${PKG}:PluginDir=/usr/lib/pppd/${UPSTREAM}
 EOF

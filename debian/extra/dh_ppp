@@ -14,7 +14,7 @@ use File::Find;
 
 =head1 SYNOPSIS
 
-B<dh_ppp> [S<I<debhelper options>>] [B<--breaks>] [B<--force>]
+B<dh_ppp> [S<I<debhelper options>>] [B<--breaks>] [B<--force>] [B<--plugin-dir>]
 
 =head1 DESCRIPTION
 
@@ -69,6 +69,12 @@ Do not try to detect pppd plugins in the package, and always assume that a
 plugin is present. This will cause B<misc:Depends> (or B<misc:Breaks>) to
 always be populated.
 
+=item B<--plugin-dir>
+
+Simply outputs the path to the pppd plugins directory for the current ABI
+version. When this flag is specified, B<dh_ppp> makes no attempt to detect any
+plugins nor does it update any substitution variables.
+
 =back
 
 =head1 NOTES
@@ -87,6 +93,7 @@ calling B<dh_ppp> manually.
 init(options => {
 	"breaks" => \$dh{BREAKS},
 	"force" => \$dh{FORCE},
+	"plugin-dir" => \$dh{PLUGIN_DIR},
 });
 
 sub detect_plugins {
@@ -155,6 +162,14 @@ sub load_substvars {
 		error("$var not defined in substvars template")
 			unless defined($substvars{$var});
 	}
+}
+
+if ($dh{PLUGIN_DIR}) {
+	inhibit_log();
+	load_substvars();
+
+	print join(', ', @{$substvars{'ppp:PluginDir'}}) . "\n";
+	exit 0;
 }
 
 foreach my $package (@{$dh{DOPACKAGES}}) {
