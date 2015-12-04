@@ -1,3 +1,9 @@
+ppp (2.4.7-1+1) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Chris Boot <debian@bootc.net>  Fri, 04 Dec 2015 08:18:14 +0000
+
 ppp (2.4.7-1+1~exp2) experimental; urgency=medium
 
   * Add a --plugin-dir option to dh_ppp that can be used to obtain the path to
