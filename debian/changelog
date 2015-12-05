@@ -1,4 +1,4 @@
-ppp (2.4.7-1+2) UNRELEASED; urgency=medium
+ppp (2.4.7-1+2~exp1) experimental; urgency=medium
 
   * Enable "pie" hardening flag.
   * Add a symbols file for ppp and validate it during builds.
@@ -9,8 +9,9 @@ ppp (2.4.7-1+2) UNRELEASED; urgency=medium
     - debian/ppp.symbols: symbols generated for this version of pppd (on
       amd64).
     - debian/README.source: document this unusual setup.
+  * Upload to experimental.
 
- -- Chris Boot <debian@bootc.net>  Sat, 05 Dec 2015 10:56:26 +0000
+ -- Chris Boot <debian@bootc.net>  Sat, 05 Dec 2015 13:35:51 +0000
 
 ppp (2.4.7-1+1) unstable; urgency=medium
 
