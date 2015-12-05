@@ -1,6 +1,6 @@
 ppp (2.4.7-1+2) UNRELEASED; urgency=medium
 
-  * 
+  * Enable "pie" hardening flag.
 
  -- Chris Boot <debian@bootc.net>  Sat, 05 Dec 2015 10:56:26 +0000
 

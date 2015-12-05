@@ -4,8 +4,8 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-# Activate full hardening build flags minus PIE which breaks plugins
-export DEB_BUILD_MAINT_OPTIONS := hardening=+all,-pie
+# Activate full hardening build flags
+export DEB_BUILD_MAINT_OPTIONS := hardening=+all
 
 ## http://wiki.debian.org/onlyjob/get-orig-source
 PKD  = $(abspath $(dir $(MAKEFILE_LIST)))
