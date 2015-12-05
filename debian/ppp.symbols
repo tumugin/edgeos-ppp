@@ -418,6 +418,7 @@ pppd.so.2.4.7 ppp #MINVER#
  start_link@Base 2.4.7-1+2~
  start_networks@Base 2.4.7-1+2~
  status@Base 2.4.7-1+2~
+ (optional)stderr@GLIBC_2.2.5 2.4.7-1+2~
  stop_bits@Base 2.4.7-1+2~
  str_to_epdisc@Base 2.4.7-1+2~
  strlcat@Base 2.4.7-1+2~
