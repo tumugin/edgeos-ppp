@@ -8,6 +8,10 @@ take into account:
 - The package's version number must follow a particular format. See *Version
   Number* below.
 
+- There is a symbols file used for tracking the pppd binary's ABI. See *Symbols
+  File* for more information. The build process is strict about checking the
+  ABI using the symbols file.
+
 - There are several packages that use ppp-dev to build plugins that may be
   loaded into pppd. When adding patches you must be very careful about not
   breaking ABI compatibility unnecessarily.
@@ -63,3 +67,40 @@ If the upstream_version field changes, the ABI version should be reset to 1.
 If you are uploading an NMU and are confident you are not changing the ABI,
 simply add your tag to the end of the version number as usual. The same applies
 for security/stable updates and backports, too.
+
+Symbols File
+------------
+
+In order to help keep track of the ABI offered to external plugins, this
+package uses a symbols file. This is very unconvential for an executable but is
+normally considered a requirement for shared libraries. The symbols file is not
+currently used beyond the ppp package itself (e.g. plugins have no way of using
+the symbols file to generate dependencies at the moment).
+
+This is consulted during the build process and if there are any changes in the
+symbols in the binary compared to the symbols file the build will fail. This is
+deliberate and helps to indicate that the ABI has changed and an ABI bump is
+probably required.
+
+Note that just because there are no changes compared to the symbol file this
+does not mean an ABI change has not happened: a patch may well change things
+that cannot be tracked using dpkg-gensymbols, for example a C struct may have
+members changed which would also change the ABI.
+
+The symbols file is generated using standard unmodified Debian tools. There are
+two changes required in order for this to work, though:
+
+1. The pppd binary is built with -Wl,-soname,pppd.so.$(VERSION) to add the
+   SONAME field to the ELF headers. This is done by patching the Makefile in
+   debian/patches/pppd-soname-hack.patch.
+
+2. dh_makeshlibs is overridden in debian/rules to force dpkg-gensymbols to
+   inspect pppd: it normally only looks at files ending ``.so``. The ``-c2``
+   option is also added to ensure that any added/removed symbols cause the
+   build to fail.
+
+If the build fails due to changed symbols, you will most likely need to update
+the symbols file and bump the ABI revision (see *Version Number*), thus leading
+to a transition and rebuilds of any packages that build ppp plugins.
+
+# vim: ft=rst

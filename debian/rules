@@ -150,6 +150,15 @@ override_dh_fixperms-arch:
 	chmod 4754 $(DIR_PPP)/usr/sbin/pppd
 	chmod 2750 $(DIR_PPP)/etc/ppp/peers/ $(DIR_PPP)/etc/chatscripts/
 
+# Force dpkg-gensymbols to inspect pppd (it doesn't end .so) so that the
+# symbols file is generated. This needs the SONAME hack that gets applied in
+# debian/patches/pppd-soname-hack.patch to work. The -c2 below makes sure that
+# the build fails if there are any discrepancies in the symbols file in order
+# to catch ABI changes.
+override_dh_makeshlibs:
+	dh_makeshlibs --package=ppp -- -c2 -edebian/ppp/usr/sbin/pppd -V
+	dh_makeshlibs --no-package=ppp
+
 ## http://wiki.debian.org/onlyjob/get-orig-source
 get-orig-source: $(info I: $(PKG)_$(VER))
 	@echo "# Downloading..."

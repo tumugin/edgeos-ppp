@@ -33,3 +33,4 @@ resolv.conf_no_log
 zzz_config
 secure-card-interpreter-fix
 rc_mksid-no-buffer-overflow
+pppd-soname-hack.patch
