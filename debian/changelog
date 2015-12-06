@@ -1,6 +1,8 @@
 ppp (2.4.7-1+2~exp3) UNRELEASED; urgency=medium
 
   * Remove obsolete conffile /etc/bash_completion.d/pon. (Closes: #807238)
+  * Remove redundant full stop in pppd-dns.service systemd unit file.
+    (Closes: #794348)
 
  -- Chris Boot <debian@bootc.net>  Sun, 06 Dec 2015 23:52:51 +0000
 
