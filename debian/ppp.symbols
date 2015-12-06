@@ -1,4 +1,9 @@
 pppd.so.2.4.7 ppp #MINVER#
+# Ignore all symbols that start with an underscore in the Base module
+ (regex|optional)"^_.*@Base$" 2.4.7-1+2~
+# Ignore everything that claims it's part of glibc
+ (regex|optional)"@GLIBC_" 2.4.7-1+2~
+# All others should be pppd symbols
  ChallengeHash@Base 2.4.7-1+2~
  ChapMS2@Base 2.4.7-1+2~
  ChapMS@Base 2.4.7-1+2~
@@ -17,10 +22,6 @@ pppd.so.2.4.7 ppp #MINVER#
  SHA1_Final@Base 2.4.7-1+2~
  SHA1_Init@Base 2.4.7-1+2~
  SHA1_Update@Base 2.4.7-1+2~
- _IO_stdin_used@Base 2.4.7-1+2~
- __libc_csu_fini@Base 2.4.7-1+2~
- __libc_csu_init@Base 2.4.7-1+2~
- _start@Base 2.4.7-1+2~
  active_filter@Base 2.4.7-1+2~
  add_fd@Base 2.4.7-1+2~
  add_notifier@Base 2.4.7-1+2~
@@ -418,7 +419,6 @@ pppd.so.2.4.7 ppp #MINVER#
  start_link@Base 2.4.7-1+2~
  start_networks@Base 2.4.7-1+2~
  status@Base 2.4.7-1+2~
- (optional)stderr@GLIBC_2.2.5 2.4.7-1+2~
  stop_bits@Base 2.4.7-1+2~
  str_to_epdisc@Base 2.4.7-1+2~
  strlcat@Base 2.4.7-1+2~
