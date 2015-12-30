@@ -1,11 +1,11 @@
-ppp (2.4.7-1+2~exp3) UNRELEASED; urgency=medium
+ppp (2.4.7-1+2~exp3) experimental; urgency=medium
 
   * Remove obsolete conffile /etc/bash_completion.d/pon. (Closes: #807238)
   * Remove redundant full stop in pppd-dns.service systemd unit file.
     (Closes: #794348)
   * Ignore $global$ symbol which appears only on hppa.
 
- -- Chris Boot <debian@bootc.net>  Sun, 06 Dec 2015 23:52:51 +0000
+ -- Chris Boot <bootc@debian.org>  Wed, 30 Dec 2015 18:16:20 +0000
 
 ppp (2.4.7-1+2~exp2) experimental; urgency=medium
 
