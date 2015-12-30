@@ -1,6 +1,8 @@
 pppd.so.2.4.7 ppp #MINVER#
 # Ignore all symbols that start with an underscore in the Base module
  (regex|optional)"^_.*@Base$" 2.4.7-1+2~
+# Ignore $global$ which seems to appear on hppa only
+ (optional)$global$@Base 2.4.7-1+2~
 # Ignore everything that claims it's part of glibc
  (regex|optional)"@GLIBC_" 2.4.7-1+2~
 # All others should be pppd symbols
