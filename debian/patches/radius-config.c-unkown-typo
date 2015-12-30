@@ -1,5 +1,5 @@
 Description: Correct unkown => unknown typo
-Author: Chris Boot <debian@bootc.net>
+Author: Chris Boot <bootc@debian.org>
 Last-Update: 2013-09-09
 
 --- ppp-2.4.5+git20130610.orig/pppd/plugins/radius/config.c

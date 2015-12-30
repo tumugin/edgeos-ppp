@@ -3,7 +3,7 @@ Description: Add a SONAME to the pppd binary
  run dpkg-gensymbols/dh_makeshlibs over the resulting binary. This is
  useful so that we can use Debian's standard build infrastructure to
  help track the ppp binary's ABI, which is used by plugins.
-Author: Chris Boot <debian@bootc.net>
+Author: Chris Boot <bootc@debian.org>
 Forwarded: not-needed
 Last-Update: 2015-12-05
 

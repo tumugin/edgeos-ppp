@@ -13,7 +13,7 @@ The modifications from the stock openSUSE patch are:
 Origin: vendor, https://build.opensuse.org/source/network/ppp/ppp-2.4.2-ifname.diff?rev=7a0fdeff0b29437dd7f4581c95c7255a
 Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=458646
 Forwarded: no
-Reviewed-by: Chris Boot <debian@bootc.net>
+Reviewed-by: Chris Boot <bootc@debian.org>
 Last-Update: 2014-01-12
 --- a/pppd/main.c
 +++ b/pppd/main.c

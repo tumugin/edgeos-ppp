@@ -5,7 +5,7 @@ I: ppp: example-wrong-path-for-interpreter
   usr/share/doc/ppp/examples/scripts/secure-card
   (#!/usr/local/bin/expect != /usr/bin/expect)
 
-Author: Chris Boot <debian@bootc.net>
+Author: Chris Boot <bootc@debian.org>
 Forwarded: not-needed
 Last-Update: 2013-09-09
 

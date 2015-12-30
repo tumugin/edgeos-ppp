@@ -9,7 +9,7 @@ the connection is taken down.
 
 Origin: vendor, https://build.opensuse.org/source/network/ppp/ppp-2.4.2-cifdefroute.diff?rev=7a0fdeff0b29437dd7f4581c95c7255a
 Forwarded: no
-Reviewed-by: Chris Boot <debian@bootc.net>
+Reviewed-by: Chris Boot <bootc@debian.org>
 Last-Update: 2014-01-26
 
 --- a/pppd/ipcp.c
