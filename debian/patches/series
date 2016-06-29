@@ -11,6 +11,9 @@ pppoe_noads
 readable_connerrs
 radius-config.c-unkown-typo
 
+# github pull requests
+pr-28-pppoe-custom-host-uniq-tag.patch
+
 # not ready to be merged
 011_scripts_redialer.diff
 cifdefroute.dif
