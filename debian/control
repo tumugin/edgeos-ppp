@@ -6,9 +6,9 @@ Maintainer: Chris Boot <bootc@debian.org>
 Uploaders: Marco d'Itri <md@linux.it>
 Build-Depends: debhelper (>= 9~), libpcap0.8-dev, libpam0g-dev, zlib1g-dev,
  dh-systemd
-Standards-Version: 3.9.6
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/pkg-ppp.git
-Vcs-Git: git://anonscm.debian.org/collab-maint/pkg-ppp.git
+Standards-Version: 3.9.8
+Vcs-Browser: https://anonscm.debian.org/git/collab-maint/pkg-ppp.git
+Vcs-Git: https://anonscm.debian.org/git/collab-maint/pkg-ppp.git
 
 Package: ppp
 Architecture: linux-any
