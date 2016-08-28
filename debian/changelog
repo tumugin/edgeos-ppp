@@ -4,6 +4,7 @@ ppp (2.4.7-1+3) UNRELEASED; urgency=medium
     add patch pr-28-pppoe-custom-host-uniq-tag.patch (Closes: #828968)
   * Update Standards-Version to 3.9.8 (no changes required).
   * Update Vcs-Browser and Vcs-Git to use https:// URLs.
+  * Fix a typo in README.Debian.
 
  -- Chris Boot <bootc@debian.org>  Wed, 29 Jun 2016 21:11:22 +0100
 

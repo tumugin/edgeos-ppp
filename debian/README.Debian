@@ -89,7 +89,7 @@ specifying phone number, username, and password from Win9x.
 
 Inbound dial-up using dial-up scripts:
 A PPP session can be established from the regular Linux prompt by executing
-/usr/sbin/pppd. The user is limited to use the assigned IP adddress in
+/usr/sbin/pppd. The user is limited to use the assigned IP address in
 /etc/ppp/options.ttyname and will not be able to override it.
 
 Note: there is support for callback, it can be done through scripts
