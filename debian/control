@@ -41,6 +41,7 @@ Description: Point-to-Point Protocol (PPP) - package for Debian Installer
 Package: ppp-dev
 Section: devel
 Architecture: all
+Multi-Arch: foreign
 Priority: extra
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: debhelper
