@@ -19,6 +19,7 @@ Architecture: linux-any
 Depends:
  libpam-modules,
  libpam-runtime,
+ lsb-base,
  procps,
  ${misc:Depends},
  ${shlibs:Depends},
