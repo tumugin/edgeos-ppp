@@ -6,6 +6,7 @@ ppp (2.4.7-1+4) UNRELEASED; urgency=medium
   [ Chris Boot ]
   * Run wrap-and-sort.
   * ppp: add lsb-base to Depends for pppd-dns init script.
+  * Fix FTBFS in rp-pppoe with linux 4.8 headers.
 
  -- Chris Boot <bootc@debian.org>  Thu, 10 Nov 2016 16:38:35 +0000
 
