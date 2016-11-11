@@ -4,16 +4,28 @@ Priority: optional
 Homepage: http://ppp.samba.org/
 Maintainer: Chris Boot <bootc@debian.org>
 Uploaders: Marco d'Itri <md@linux.it>
-Build-Depends: debhelper (>= 9~), libpcap0.8-dev, libpam0g-dev, zlib1g-dev,
- dh-systemd
+Build-Depends:
+ debhelper (>= 9~),
+ dh-systemd,
+ libpam0g-dev,
+ libpcap0.8-dev,
+ zlib1g-dev,
 Standards-Version: 3.9.8
 Vcs-Browser: https://anonscm.debian.org/git/collab-maint/pkg-ppp.git
 Vcs-Git: https://anonscm.debian.org/git/collab-maint/pkg-ppp.git
 
 Package: ppp
 Architecture: linux-any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libpam-modules, libpam-runtime, procps
-Breaks: network-manager (<< 0.9.8.8-7~), network-manager-pptp (<< 0.9.8.4-3~), pppdcapiplugin (<< 1:3.25+dfsg1-3.4~)
+Depends:
+ libpam-modules,
+ libpam-runtime,
+ procps,
+ ${misc:Depends},
+ ${shlibs:Depends},
+Breaks:
+ network-manager (<< 0.9.8.8-7~),
+ network-manager-pptp (<< 0.9.8.4-3~),
+ pppdcapiplugin (<< 1:3.25+dfsg1-3.4~),
 Description: Point-to-Point Protocol (PPP) - daemon
  The Point-to-Point Protocol provides a standard way to transmit
  datagrams over a serial link, as well as a standard way for the machines
@@ -27,7 +39,12 @@ Package: ppp-udeb
 Package-Type: udeb
 Section: debian-installer
 Architecture: linux-any
-Depends: ${shlibs:Depends}, ${misc:Depends}, ethernet-card-detection, ppp-modules, di-utils
+Depends:
+ di-utils,
+ ethernet-card-detection,
+ ppp-modules,
+ ${misc:Depends},
+ ${shlibs:Depends},
 Provides: configured-network
 XB-Installer-Menu-Item: 1700
 Description: Point-to-Point Protocol (PPP) - package for Debian Installer
@@ -43,7 +60,7 @@ Section: devel
 Architecture: all
 Multi-Arch: foreign
 Priority: extra
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
 Suggests: debhelper
 Description: Point-to-Point Protocol (PPP) - development files
  The Point-to-Point Protocol provides a standard way to transmit

@@ -1,8 +1,8 @@
-etc/ppp/peers/
 etc/chatscripts/
-etc/ppp/ip-up.d/
 etc/ppp/ip-down.d/
-etc/ppp/ipv6-up.d/
+etc/ppp/ip-up.d/
 etc/ppp/ipv6-down.d/
-usr/share/ppp/
+etc/ppp/ipv6-up.d/
+etc/ppp/peers/
 usr/bin/
+usr/share/ppp/

@@ -262,7 +262,7 @@ as an exception to the license, linking with OpenSSL is allowed.
 pppd/plugins/winbind.c is licensed under the GNU GPL version 2 or later
 and is:
 * Copyright (C) 2003 Andrew Bartlet <abartlet@samba.org>
-* Copyright 1999 Paul Mackerras, Alan Curry. 
+* Copyright 1999 Paul Mackerras, Alan Curry.
 * Copyright (C) 2002 Roaring Penguin Software Inc.
 
 pppd/plugins/pppoatm.c is licensed under the GNU GPL version 2 or later
@@ -363,4 +363,3 @@ documentation and/or software.
 *
 * This plugin may be distributed according to the terms of the GNU
 * General Public License, version 2 or (at your option) any later version.
-
