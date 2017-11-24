@@ -7,12 +7,9 @@
 # Activate full hardening build flags
 export DEB_BUILD_MAINT_OPTIONS := hardening=+all
 
-## http://wiki.debian.org/onlyjob/get-orig-source
-PKD  = $(abspath $(dir $(MAKEFILE_LIST)))
-PKG  = $(shell dpkg-parsechangelog -l$(PKD)/changelog --show-field=Source)
-VER ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog --show-field=Version | \
-	perl -ne 'print $$1 if m{^(?:\d+:)?(\d.*)(?:\-\d+.*)$$};')
-##
+PKD := $(abspath $(dir $(MAKEFILE_LIST)))
+
+include /usr/share/dpkg/default.mk
 
 DIR_PPP := $(CURDIR)/debian/ppp
 DIR_PPP_DEV := $(CURDIR)/debian/ppp-dev
@@ -22,11 +19,7 @@ TMP_UDEB := $(CURDIR)/debian/tmp-udeb
 
 PPP_PLUGIN_ABI := $(shell awk -F '"' '/VERSION/ { print $$2; }' \
 	$(CURDIR)/pppd/patchlevel.h)
-VERSION_UPSTREAM := $(shell dpkg-parsechangelog -l$(PKD)/changelog \
-	--show-field=Version | \
-	perl -ne 'print $$1 if m{^(?:\d+:)?(\d.*)(?:\-\d+.*)$$};')
-VERSION_DEBIAN := $(shell dpkg-parsechangelog -l$(PKD)/changelog \
-	--show-field=Version | \
+VERSION_DEBIAN := $(shell echo '$(DEB_VERSION)' | \
 	perl -ne 'print $$1 if m{^(?:\d+:)?(?:\d.*)\-(\d+.*)$$};')
 VERSION_ABI_PART := $(shell echo "$(VERSION_DEBIAN)" | \
 	perl -ne 'print $$1 if m{^(^\d+)\+};')
@@ -44,10 +37,10 @@ UDEB_PLUGIN_DIRS := pppoatm rp-pppoe
 
 override_dh_testdir:
 	dh_testdir
-	if [ "$(PPP_PLUGIN_ABI)" != "$(VERSION_UPSTREAM)" ]; then \
+	if [ "$(PPP_PLUGIN_ABI)" != "$(DEB_VERSION_UPSTREAM)" ]; then \
 	  echo; echo "**********"; \
 	  echo "VERSION in pppd/patchlevel.h must match upstream version."; \
-	  echo "Upstream version is '$(VERSION_UPSTREAM)'"; \
+	  echo "Upstream version is '$(DEB_VERSION_UPSTREAM)'"; \
 	  echo "VERSION is '$(PPP_PLUGIN_ABI)'"; \
 	  echo "Aborting the build."; \
 	  echo "**********"; echo; \
@@ -114,7 +107,7 @@ override_dh_auto_install-arch:
 override_dh_auto_install-indep:
 	$(MAKE) install-devel DESTDIR=$(DIR_PPP_DEV)/usr/
 	mkdir -p $(DIR_PPP_DEV)/usr/share/ppp-dev
-	$(PKD)/gen_substvars_dev $(VERSION_UPSTREAM) $(VERSION_ABI_PART) \
+	$(PKD)/gen_substvars_dev $(DEB_VERSION_UPSTREAM) $(VERSION_ABI_PART) \
 	  > $(DIR_PPP_DEV)/usr/share/ppp-dev/substvars
 
 override_dh_installchangelogs:
@@ -160,6 +153,6 @@ override_dh_makeshlibs:
 	dh_makeshlibs --no-package=ppp
 
 ## http://wiki.debian.org/onlyjob/get-orig-source
-get-orig-source: $(info I: $(PKG)_$(VER))
+get-orig-source: $(info I: $(DEB_SOURCE)_$(DEB_VERSION_UPSTREAM))
 	@echo "# Downloading..."
-	uscan --noconf --verbose --rename --destdir=$(CURDIR) --check-dirname-level=0 --force-download --download-version $(VER) $(PKD)
+	uscan --noconf --verbose --rename --destdir=$(CURDIR) --check-dirname-level=0 --force-download --download-version $(DEB_VERSION_UPSTREAM) $(PKD)

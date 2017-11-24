@@ -7,6 +7,7 @@ ppp (2.4.7-1+5) UNRELEASED; urgency=medium
     - Remove implicit --with systemd from debian/rules.
   * Update Standards-Version to 4.1.1:
     - Remove Priority extra from ppp-dev.
+  * debian/rules: use dpkg helpers for parsing debian/changelog.
 
  -- Chris Boot <bootc@debian.org>  Fri, 24 Nov 2017 11:39:18 +0000
 
