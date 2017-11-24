@@ -9,7 +9,7 @@ Build-Depends:
  libpam0g-dev,
  libpcap0.8-dev,
  zlib1g-dev,
-Standards-Version: 3.9.8
+Standards-Version: 4.1.1
 Vcs-Browser: https://anonscm.debian.org/git/collab-maint/pkg-ppp.git
 Vcs-Git: https://anonscm.debian.org/git/collab-maint/pkg-ppp.git
 
@@ -59,7 +59,6 @@ Package: ppp-dev
 Section: devel
 Architecture: all
 Multi-Arch: foreign
-Priority: extra
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Suggests: debhelper
 Description: Point-to-Point Protocol (PPP) - development files

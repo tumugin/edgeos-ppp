@@ -5,6 +5,8 @@ ppp (2.4.7-1+5) UNRELEASED; urgency=medium
     - Bump Build-Depends on debhelper to >= 10~.
     - Remove Build-Depends on dh-systemd.
     - Remove implicit --with systemd from debian/rules.
+  * Update Standards-Version to 4.1.1:
+    - Remove Priority extra from ppp-dev.
 
  -- Chris Boot <bootc@debian.org>  Fri, 24 Nov 2017 11:39:18 +0000
 
