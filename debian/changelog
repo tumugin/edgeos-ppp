@@ -1,3 +1,13 @@
+ppp (2.4.7-1+5) UNRELEASED; urgency=medium
+
+  * Switch to debhelper compat level 10.
+    - Set debian/compat to 10.
+    - Bump Build-Depends on debhelper to >= 10~.
+    - Remove Build-Depends on dh-systemd.
+    - Remove implicit --with systemd from debian/rules.
+
+ -- Chris Boot <bootc@debian.org>  Fri, 24 Nov 2017 11:39:18 +0000
+
 ppp (2.4.7-1+4) unstable; urgency=medium
 
   [ Helmut Grohne ]

@@ -40,7 +40,7 @@ UDEB_PLUGIN_DIRS := pppoatm rp-pppoe
 
 ##############################################################################
 %:
-	dh $@ --with systemd
+	dh $@
 
 override_dh_testdir:
 	dh_testdir
