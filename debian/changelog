@@ -34,6 +34,8 @@ ppp (2.4.7-2+1) UNRELEASED; urgency=medium
       patches.
   * Tweak pon and poff bash-completions files for new versions of
     bash-completion. (Closes: #882199)
+  * debian/ppp-udeb.postinst: consider interface names using udev predictable
+    iterface naming. (Closes: #873391)
 
  -- Chris Boot <bootc@debian.org>  Sun, 17 Dec 2017 12:35:51 +0000
 
