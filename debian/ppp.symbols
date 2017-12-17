@@ -14,13 +14,6 @@ pppd.so.2.4.7 ppp #MINVER#
  DesSetkey@Base 2.4.7-1+2~
  GenerateAuthenticatorResponse@Base 2.4.7-1+2~
  GetMask@Base 2.4.7-1+2~
- MD4Final@Base 2.4.7-1+2~
- MD4Init@Base 2.4.7-1+2~
- MD4Print@Base 2.4.7-1+2~
- MD4Update@Base 2.4.7-1+2~
- SHA1_Final@Base 2.4.7-1+2~
- SHA1_Init@Base 2.4.7-1+2~
- SHA1_Update@Base 2.4.7-1+2~
  active_filter@Base 2.4.7-1+2~
  add_fd@Base 2.4.7-1+2~
  add_notifier@Base 2.4.7-1+2~

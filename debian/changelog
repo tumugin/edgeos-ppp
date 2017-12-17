@@ -15,6 +15,11 @@ ppp (2.4.7-2+1) UNRELEASED; urgency=medium
       symbols (MD5 now comes from OpenSSL).
     - debian/rules: don't include EAP-TLS support in the udeb build.
   * debian/changelog: remove trailing whitepace.
+  * Switch to OpenSSL implementations of MD4, MD5 and SHA1: (Closes: #826625)
+    - debian/patches/replace-vendored-hash-functions.patch: remove embedded
+      crypto code copies, unconditionally link with libcrypto, update
+      includes, amend call sites as required.
+    - debian/ppp.symbols: remove dropped symbols.
 
  -- Chris Boot <bootc@debian.org>  Sun, 17 Dec 2017 12:35:51 +0000
 
