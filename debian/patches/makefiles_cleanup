@@ -7,7 +7,7 @@ packaging system if required.
 
 --- a/chat/Makefile.linux
 +++ b/chat/Makefile.linux
-@@ -12,20 +12,21 @@ CDEFS=	$(CDEF1) $(CDEF2) $(CDEF3) $(CDEF
+@@ -12,20 +12,21 @@
  
  COPTS=	-O2 -g -pipe
  CFLAGS=	$(COPTS) $(CDEFS)
@@ -42,8 +42,8 @@ packaging system if required.
  INSTALL	= install
  
  DESTDIR = $(INSTROOT)@DESTDIR@
-@@ -23,7 +23,7 @@ all:	$(PLUGINS)
- 	for d in $(SUBDIRS); do $(MAKE) $(MFLAGS) -C $$d all; done
+@@ -30,7 +30,7 @@
+ 	for d in $(SUBDIRS); do $(MAKE) $(MFLAGS) -C $$d all || exit $$?; done
  
  %.so: %.c
 -	$(CC) -o $@ $(LDFLAGS) $(CFLAGS) $^
@@ -62,7 +62,7 @@ packaging system if required.
  INSTALL	= install
  
  #***********************************************************************
-@@ -33,7 +33,7 @@ endif
+@@ -33,7 +33,7 @@
  all: $(PLUGIN)
  
  $(PLUGIN): $(PLUGIN_OBJS)
@@ -82,7 +82,7 @@ packaging system if required.
  INSTALL	= install
  
  #***********************************************************************
-@@ -16,7 +16,7 @@ PLUGINS := pppol2tp.so openl2tp.so
+@@ -16,7 +16,7 @@
  all: $(PLUGINS)
  
  %.so: %.o
@@ -93,7 +93,7 @@ packaging system if required.
  	$(INSTALL) -d -m 755 $(LIBDIR)
 --- a/pppd/plugins/radius/Makefile.linux
 +++ b/pppd/plugins/radius/Makefile.linux
-@@ -12,7 +12,9 @@ VERSION = $(shell awk -F '"' '/VERSION/
+@@ -12,7 +12,9 @@
  INSTALL	= install
  
  PLUGIN=radius.so radattr.so radrealms.so
@@ -104,7 +104,7 @@ packaging system if required.
  
  # Uncomment the next line to include support for Microsoft's
  # MS-CHAP authentication protocol.
-@@ -36,20 +38,20 @@ all: $(PLUGIN)
+@@ -36,20 +38,20 @@
  
  install: all
  	$(INSTALL) -d -m 755 $(LIBDIR)
@@ -133,7 +133,7 @@ packaging system if required.
  	clientid.o sendserver.o lock.o util.o md5.o
 --- a/pppd/plugins/rp-pppoe/Makefile.linux
 +++ b/pppd/plugins/rp-pppoe/Makefile.linux
-@@ -27,10 +27,12 @@ RP_VERSION=3.8p
+@@ -27,10 +27,12 @@
  
  COPTS=-O2 -g
  CFLAGS=$(COPTS) -I../../../include '-DRP_VERSION="$(RP_VERSION)"'
@@ -147,7 +147,7 @@ packaging system if required.
  
  pppoe-discovery.o: pppoe-discovery.c
  	$(CC) $(CFLAGS) -c -o pppoe-discovery.o pppoe-discovery.c
-@@ -39,13 +41,13 @@ debug.o: debug.c
+@@ -39,13 +41,13 @@
  	$(CC) $(CFLAGS) -c -o debug.o debug.c
  
  rp-pppoe.so: plugin.o discovery.o if.o common.o
@@ -166,7 +166,7 @@ packaging system if required.
  	rm -f *.o *.so pppoe-discovery
 --- a/pppstats/Makefile.linux
 +++ b/pppstats/Makefile.linux
-@@ -10,23 +10,24 @@ PPPSTATSRCS = pppstats.c
+@@ -10,23 +10,24 @@
  PPPSTATOBJS = pppstats.o
  
  #CC = gcc
@@ -196,7 +196,7 @@ packaging system if required.
  	rm -f pppstats *~ #* core
 --- a/pppdump/Makefile.linux
 +++ b/pppdump/Makefile.linux
-@@ -2,7 +2,10 @@ DESTDIR = $(INSTROOT)@DESTDIR@
+@@ -2,7 +2,10 @@
  BINDIR = $(DESTDIR)/sbin
  MANDIR = $(DESTDIR)/share/man/man8
  
@@ -208,7 +208,7 @@ packaging system if required.
  OBJS = pppdump.o bsd-comp.o deflate.o zlib.o
  
  INSTALL= install
-@@ -10,12 +13,12 @@ INSTALL= install
+@@ -10,12 +13,12 @@
  all:	pppdump
  
  pppdump: $(OBJS)
@@ -225,7 +225,7 @@ packaging system if required.
  	$(INSTALL) -c -m 444 pppdump.8 $(MANDIR)
 --- a/pppd/Makefile.linux
 +++ b/pppd/Makefile.linux
-@@ -83,6 +83,7 @@ INCLUDE_DIRS= -I../include
+@@ -83,6 +83,7 @@
  COMPILE_FLAGS= -DHAVE_PATHS_H -DIPX_CHANGE -DHAVE_MMAP
  
  CFLAGS= $(COPTS) $(COMPILE_FLAGS) $(INCLUDE_DIRS) '-DDESTDIR="@DESTDIR@"'
@@ -233,7 +233,7 @@ packaging system if required.
  
  ifdef CHAPMS
  CFLAGS   += -DCHAPMS=1
-@@ -102,7 +103,7 @@ ifdef USE_SRP
+@@ -102,7 +103,7 @@
  CFLAGS	+= -DUSE_SRP -DOPENSSL -I/usr/local/ssl/include
  LIBS	+= -lsrp -L/usr/local/ssl/lib -lcrypto
  TARGETS	+= srp-entry
@@ -242,7 +242,7 @@ packaging system if required.
  MANPAGES += srp-entry.8
  EXTRACLEAN += srp-entry.o
  NEEDDES=y
-@@ -208,13 +209,13 @@ all: $(TARGETS)
+@@ -208,13 +209,13 @@
  install: pppd
  	mkdir -p $(BINDIR) $(MANDIR)
  	$(EXTRAINSTALL)

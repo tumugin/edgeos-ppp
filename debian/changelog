@@ -20,6 +20,18 @@ ppp (2.4.7-2+1) UNRELEASED; urgency=medium
       crypto code copies, unconditionally link with libcrypto, update
       includes, amend call sites as required.
     - debian/ppp.symbols: remove dropped symbols.
+  * Import patches added to upstream Git since the 2.4.7 upstream release,
+    correcting numerous minor bugs. Of note:
+    - 0002-pppd-add-support-for-defaultroute-metric-option.patch: this patch
+      is NOT currently applied due to conflicts with the cifdefroute.dif
+      patch, which adds the replacedefaultroute and noreplacedefaultroute
+      options.
+    - 0013-pppd-allow-use-of-arbitrary-interface-names.patch: upstream import
+      of our ppp-2.4.2-ifname.diff patch.
+    - 0016-pppoe-include-netinet-in.h-before-linux-in.h.patch: upstream patch
+      that replaces our fix-rp-pppoe-ftbfs.patch.
+    - Refreshed 018_ip-up_option.diff and makefiles_cleanup on top of the new
+      patches.
 
  -- Chris Boot <bootc@debian.org>  Sun, 17 Dec 2017 12:35:51 +0000
 
