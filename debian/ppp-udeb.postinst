@@ -3,7 +3,7 @@ set -e
 
 . /usr/share/debconf/confmodule
 
-INTERFACES=$(grep : /proc/net/dev | cut -d':' -f1 | sort | sed -e 's/ *//' | grep -E '^(eth|nas|tap|nic-)')
+INTERFACES=$(grep : /proc/net/dev | cut -d':' -f1 | sort | sed -e 's/ *//' | grep -E '^(en|eth|nas|tap|nic-)')
 db_get ppp/interface
 PPPOE="$RET"
 db_capb backup

@@ -1,6 +1,7 @@
 ppp (2.4.7-1+4+deb9u1) stretch; urgency=medium
 
-  * 
+  * debian/ppp-udeb.postinst: consider interface names using udev predictable
+    interface naming. (Closes: #873391)
 
  -- Chris Boot <bootc@debian.org>  Sun, 18 Feb 2018 10:28:19 +0000
 
