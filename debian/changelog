@@ -14,6 +14,7 @@ ppp (2.4.7-2+1) UNRELEASED; urgency=medium
     - debian/changelog: bump the ABI revision number to account for removed
       symbols (MD5 now comes from OpenSSL).
     - debian/rules: don't include EAP-TLS support in the udeb build.
+  * debian/changelog: remove trailing whitepace.
 
  -- Chris Boot <bootc@debian.org>  Sun, 17 Dec 2017 12:35:51 +0000
 
@@ -519,7 +520,7 @@ ppp (2.4.4rel-4.1) unstable; urgency=low
   * Non-maintainer upload with maintainer's consent.
   * New patch fix_mschapv2_ppp which makes ppp works with mschapv2. Thanks
     to Guillaume Knispel <gknispel@proformatique.com>. Closes: #381420.
-  * Add hints section to README.pppoe (pppoe_readme patch) and iptables to 
+  * Add hints section to README.pppoe (pppoe_readme patch) and iptables to
     Suggests. Thanks to Joerg Dorchain <joerg@dorchain.net>. Closes: #251918.
   * Improve the chat manpage concerning timeout (chap_man patch).
     Closes: #320494.
