@@ -5,7 +5,7 @@ ppp (2.4.7-2+1) UNRELEASED; urgency=medium
     - Bump Build-Depends on debhelper to >= 10~.
     - Remove Build-Depends on dh-systemd.
     - Remove implicit --with systemd from debian/rules.
-  * Update Standards-Version to 4.1.1:
+  * Update Standards-Version to 4.1.2:
     - Remove Priority extra from ppp-dev.
   * debian/rules: use dpkg helpers for parsing debian/changelog.
   * Incorporate the EAP-TLS patch for pppd: (Closes: #602503)
