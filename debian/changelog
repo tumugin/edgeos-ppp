@@ -32,6 +32,8 @@ ppp (2.4.7-2+1) UNRELEASED; urgency=medium
       that replaces our fix-rp-pppoe-ftbfs.patch.
     - Refreshed 018_ip-up_option.diff and makefiles_cleanup on top of the new
       patches.
+  * Tweak pon and poff bash-completions files for new versions of
+    bash-completion. (Closes: #882199)
 
  -- Chris Boot <bootc@debian.org>  Sun, 17 Dec 2017 12:35:51 +0000
 

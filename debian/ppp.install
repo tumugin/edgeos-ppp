@@ -1,3 +1,4 @@
+debian/extra/bash_completion/poff	usr/share/bash-completion/completions/
 debian/extra/bash_completion/pon	usr/share/bash-completion/completions/
 debian/extra/chap-secrets		usr/share/ppp/
 debian/extra/chatscripts/		etc/
