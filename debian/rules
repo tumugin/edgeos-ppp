@@ -25,10 +25,9 @@ VERSION_ABI_PART := $(shell echo "$(VERSION_DEBIAN)" | \
 	perl -ne 'print $$1 if m{^(^\d+)\+};')
 
 UDEB_MAKEOPTS := \
-	CHAPMS= USE_CRYPT= NO_CRYPT_HACK=1 MPPE= \
-	FILTER= HAVE_MULTILINK= USE_TDB= \
-	HAS_SHADOW= USE_PAM= HAVE_INET6= \
-	CBCP= USE_SRP= MAXOCTETS= USE_BUILTIN_CRYPTO=1
+	CHAPMS= USE_CRYPT= NO_CRYPT_HACK=1 MPPE= FILTER= HAVE_MULTILINK= \
+	USE_TDB= HAS_SHADOW= USE_PAM= HAVE_INET6= CBCP= USE_SRP= MAXOCTETS= \
+	USE_BUILTIN_CRYPTO=1 USE_EAPTLS=
 UDEB_PLUGIN_DIRS := pppoatm rp-pppoe
 
 ##############################################################################

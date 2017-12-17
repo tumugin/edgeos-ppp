@@ -38,3 +38,4 @@ secure-card-interpreter-fix
 rc_mksid-no-buffer-overflow
 pppd-soname-hack.patch
 fix-rp-pppoe-ftbfs.patch
+eaptls-mppe.patch

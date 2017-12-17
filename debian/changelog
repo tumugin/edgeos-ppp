@@ -1,4 +1,4 @@
-ppp (2.4.7-1+5) UNRELEASED; urgency=medium
+ppp (2.4.7-2+1) UNRELEASED; urgency=medium
 
   * Switch to debhelper compat level 10.
     - Set debian/compat to 10.
@@ -8,8 +8,14 @@ ppp (2.4.7-1+5) UNRELEASED; urgency=medium
   * Update Standards-Version to 4.1.1:
     - Remove Priority extra from ppp-dev.
   * debian/rules: use dpkg helpers for parsing debian/changelog.
+  * Incorporate the EAP-TLS patch for pppd: (Closes: #602503)
+    - debian/patches/eaptls-mppe.patch: add ppp-2.4.7-eaptls-mppe-0.999.patch.
+    - debian/control: add libssl-dev to Build-Depends.
+    - debian/changelog: bump the ABI revision number to account for removed
+      symbols (MD5 now comes from OpenSSL).
+    - debian/rules: don't include EAP-TLS support in the udeb build.
 
- -- Chris Boot <bootc@debian.org>  Fri, 24 Nov 2017 11:39:18 +0000
+ -- Chris Boot <bootc@debian.org>  Sun, 17 Dec 2017 12:35:51 +0000
 
 ppp (2.4.7-1+4) unstable; urgency=medium
 
