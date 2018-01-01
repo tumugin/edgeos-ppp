@@ -1,10 +1,11 @@
 ppp (2.4.7-2+1) UNRELEASED; urgency=medium
 
-  * Switch to debhelper compat level 10.
-    - Set debian/compat to 10.
-    - Bump Build-Depends on debhelper to >= 10~.
+  * Switch to debhelper compat level 11.
+    - Set debian/compat to 11.
+    - Bump Build-Depends on debhelper to >= 11~.
     - Remove Build-Depends on dh-systemd.
     - Remove implicit --with systemd from debian/rules.
+    - Switch to dh_installsystemd helper.
   * Update Standards-Version to 4.1.2:
     - Remove Priority extra from ppp-dev.
   * debian/rules: use dpkg helpers for parsing debian/changelog.

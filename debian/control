@@ -5,7 +5,7 @@ Homepage: http://ppp.samba.org/
 Maintainer: Chris Boot <bootc@debian.org>
 Uploaders: Marco d'Itri <md@linux.it>
 Build-Depends:
- debhelper (>= 10~),
+ debhelper (>= 11~),
  libpam0g-dev,
  libpcap0.8-dev,
  libssl-dev,
