@@ -204,7 +204,7 @@ iface lo inet loopback
 # PPPoE connection
 auto provider
 iface provider inet ppp
-	pre-up /sbin/ifconfig $IFACE up
+	pre-up /bin/ip link set $IFACE up
 	provider provider
 EOF
 

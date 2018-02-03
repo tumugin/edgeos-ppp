@@ -1,5 +1,10 @@
 ppp (2.4.7-1+4+deb9u1) stretch; urgency=medium
 
+  [ Алексей Шилин ]
+  * debian-installer udeb: use /bin/ip instead of /sbin/ifconfig in the
+    interfaces configuration for the installed system. (Closes: #889295)
+
+  [ Chris Boot ]
   * debian/ppp-udeb.postinst: consider interface names using udev predictable
     interface naming. (Closes: #873391)
 
