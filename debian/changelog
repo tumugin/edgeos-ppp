@@ -38,6 +38,7 @@ ppp (2.4.7-2+1) UNRELEASED; urgency=medium
   * debian/ppp-udeb.postinst: consider interface names using udev predictable
     interface naming. (Closes: #873391)
   * d/control: declare that the build requires root.
+  * Move packaging from Alioth to Salsa.
 
  -- Chris Boot <bootc@debian.org>  Sun, 17 Dec 2017 12:35:51 +0000
 
