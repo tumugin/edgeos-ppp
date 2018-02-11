@@ -1,4 +1,4 @@
-ppp (2.4.7-2+1) UNRELEASED; urgency=medium
+ppp (2.4.7-2+1~exp1) experimental; urgency=medium
 
   * Switch to debhelper compat level 11.
     - Set debian/compat to 11.
@@ -39,8 +39,9 @@ ppp (2.4.7-2+1) UNRELEASED; urgency=medium
     interface naming. (Closes: #873391)
   * d/control: declare that the build requires root.
   * Move packaging from Alioth to Salsa.
+  * Upload to experimental.
 
- -- Chris Boot <bootc@debian.org>  Sun, 17 Dec 2017 12:35:51 +0000
+ -- Chris Boot <bootc@debian.org>  Sun, 11 Feb 2018 19:17:06 +0000
 
 ppp (2.4.7-1+4) unstable; urgency=medium
 
