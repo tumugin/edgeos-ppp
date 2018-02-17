@@ -1,10 +1,13 @@
-ppp (2.4.7-2+1) UNRELEASED; urgency=medium
+ppp (2.4.7-2+1) unstable; urgency=medium
 
   [ Алексей Шилин ]
   * debian-installer udeb: use /bin/ip instead of /sbin/ifconfig in the
     interfaces configuration for the installed system. (Closes: #889295)
 
- -- Chris Boot <bootc@debian.org>  Sat, 17 Feb 2018 10:18:53 +0000
+  [ Chris Boot ]
+  * Upload to unstable.
+
+ -- Chris Boot <bootc@debian.org>  Sat, 17 Feb 2018 10:19:58 +0000
 
 ppp (2.4.7-2+1~exp1) experimental; urgency=medium
 
