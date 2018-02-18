@@ -7,6 +7,7 @@ ppp (2.4.7-1+4+deb9u1) stretch; urgency=medium
   [ Chris Boot ]
   * debian/ppp-udeb.postinst: consider interface names using udev predictable
     interface naming. (Closes: #873391)
+  * debian/gbp.conf: set debian-branch and dist for stable release branch.
 
  -- Chris Boot <bootc@debian.org>  Sun, 18 Feb 2018 10:28:19 +0000
 
