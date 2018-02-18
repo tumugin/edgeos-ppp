@@ -1,3 +1,9 @@
+ppp (2.4.7-1+4+deb9u1) stretch; urgency=medium
+
+  * 
+
+ -- Chris Boot <bootc@debian.org>  Sun, 18 Feb 2018 10:28:19 +0000
+
 ppp (2.4.7-1+4) unstable; urgency=medium
 
   [ Helmut Grohne ]
