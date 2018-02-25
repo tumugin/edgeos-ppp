@@ -116,27 +116,34 @@ of our use of the EAP-TLS patch which requires OpenSSL.
      char	*user;
  
      /* remove domain from "domain\username" */
-@@ -582,15 +582,15 @@
- #endif
+@@ -574,23 +574,11 @@
+ static void
+ NTPasswordHash(u_char *secret, int secret_len, u_char hash[MD4_SIGNATURE_SIZE])
+ {
+-#ifdef __NetBSD__
+-    /* NetBSD uses the libc md4 routines which take bytes instead of bits */
+-    int			mdlen = secret_len;
+-#else
+-    int			mdlen = secret_len * 8;
+-#endif
      MD4_CTX		md4Context;
  
 -    MD4Init(&md4Context);
-+    MD4_Init(&md4Context);
-     /* MD4Update can take at most 64 bytes at a time */
-     while (mdlen > 512) {
+-    /* MD4Update can take at most 64 bytes at a time */
+-    while (mdlen > 512) {
 -	MD4Update(&md4Context, secret, 512);
-+	MD4_Update(&md4Context, secret, 512);
- 	secret += 64;
- 	mdlen -= 512;
-     }
+-	secret += 64;
+-	mdlen -= 512;
+-    }
 -    MD4Update(&md4Context, secret, mdlen);
 -    MD4Final(hash, &md4Context);
-+    MD4_Update(&md4Context, secret, mdlen);
++    MD4_Init(&md4Context);
++    MD4_Update(&md4Context, secret, secret_len);
 +    MD4_Final(hash, &md4Context);
  
  }
  
-@@ -671,8 +671,8 @@
+@@ -671,8 +659,8 @@
  	  0x6E };
  
      int		i;
@@ -147,7 +154,7 @@ of our use of the EAP-TLS patch which requires OpenSSL.
      u_char	Challenge[8];
  
      SHA1_Init(&sha1Context);
-@@ -725,8 +725,8 @@
+@@ -725,8 +713,8 @@
  void
  mppe_set_keys(u_char *rchallenge, u_char PasswordHashHash[MD4_SIGNATURE_SIZE])
  {
@@ -158,7 +165,7 @@ of our use of the EAP-TLS patch which requires OpenSSL.
  
      SHA1_Init(&sha1Context);
      SHA1_Update(&sha1Context, PasswordHashHash, MD4_SIGNATURE_SIZE);
-@@ -769,9 +769,9 @@
+@@ -769,9 +757,9 @@
  mppe_set_keys2(u_char PasswordHashHash[MD4_SIGNATURE_SIZE],
  	       u_char NTResponse[24], int IsServer)
  {
