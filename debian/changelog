@@ -1,8 +1,9 @@
-ppp (2.4.7-2+3) UNRELEASED; urgency=medium
+ppp (2.4.7-2+3) unstable; urgency=high
 
   * Update EAP-TLS patch to version 1.101. (CVE-2018-11574)
+  * Set urgency=high due to security fix.
 
- -- Chris Boot <bootc@debian.org>  Sat, 09 Jun 2018 13:56:44 +0100
+ -- Chris Boot <bootc@debian.org>  Sat, 09 Jun 2018 14:20:01 +0100
 
 ppp (2.4.7-2+2) unstable; urgency=medium
 
