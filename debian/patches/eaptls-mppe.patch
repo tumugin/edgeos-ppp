@@ -4,9 +4,9 @@ Bug-Debian: https://bugs.debian.org/602503
 Bug-Ubuntu: https://launchpad.net/bugs/643417
 Forwarded: not-needed
 Author: Jan Just Keijser <janjust@nikhef.nl>
-Last-Update: 2017-12-17
+Last-Update: 2018-06-09
 
-This patch is based on ppp-2.4.7-eaptls-mppe-0.999.patch, with the following
+This patch is based on ppp-2.4.7-eaptls-mppe-1.101.patch, with the following
 changes:
 
  - Patch refreshed to remove fuzz.
@@ -14,7 +14,7 @@ changes:
 
 --- /dev/null
 +++ b/README.eap-tls
-@@ -0,0 +1,280 @@
+@@ -0,0 +1,286 @@
 +EAP-TLS authentication support for PPP
 +======================================
 +
@@ -290,10 +290,16 @@ changes:
 +v0.996   (28-May-2014)
 + - Fix minor bug where SessionTicket message was printed as 'Unknown SSL3 code 4'
 + - Add EAP-TLS-specific options to pppd.8 manual page.
-+ - Updated README.eap-tls file with new option and provide an example.
++ - Updated README.eap-tls file with new options and provide an example.
 +v0.997   (19-Jun-2014)
-+ - change SSL_OP_NO_TICKETS to SSL_OP_NO_TICKET
-+ - fix bug in initialisation code with fragmented packets.
++ - Change SSL_OP_NO_TICKETS to SSL_OP_NO_TICKET
++ - Fix bug in initialisation code with fragmented packets.
++v0.998   (13-Mar-2015)
++ - Added fix for https://bugzilla.redhat.com/show_bug.cgi?id=1023620
++v0.999   (11-May-2017)
++ - Added support for OpenSSL 1.1: the code will now compile against OpenSSL 1.0.x or 1.1.x.
++v1.101 (1-Jun-2018)
++ - Fix vulnerabilities CVE-2018-11574.
 +
 --- /dev/null
 +++ b/etc.ppp/eaptls-client
@@ -939,7 +945,7 @@ changes:
  #define MD5_MIN_CHALLENGE	16
 --- /dev/null
 +++ b/pppd/eap-tls.c
-@@ -0,0 +1,1308 @@
+@@ -0,0 +1,1313 @@
 +/*
 + * eap-tls.c - EAP-TLS implementation for PPP
 + *
@@ -1003,6 +1009,7 @@ changes:
 + * https://wiki.openssl.org/index.php/1.1_API_Changes
 + * tries to provide some guidance but ultimately falls short.
 + */
++
 +
 +static void HMAC_CTX_free(HMAC_CTX *ctx)
 +{
@@ -1807,46 +1814,47 @@ changes:
 +int eaptls_receive(struct eaptls_session *ets, u_char * inp, int len)
 +{
 +	u_char flags;
-+	u_int tlslen;
++	u_int tlslen = 0;
 +	u_char dummy[65536];
++
++	if (len < 1) {
++		warn("EAP-TLS: received no or invalid data");
++		return 1;
++	}
 +
 +	GETCHAR(flags, inp);
 +	len--;
 +
-+    if (flags & EAP_TLS_FLAGS_LI && !ets->data) {
-+
++    if (flags & EAP_TLS_FLAGS_LI && len >= 4) {
 +		/*
-+		 * This is the first packet of a message
++		 * LenghtIncluded flag set -> this is the first packet of a message
 +		*/
 +
++		/*
++		 * the first 4 octets are the length of the EAP-TLS message
++		 */
 +		GETLONG(tlslen, inp);
 +		len -= 4;
 +
-+		if (tlslen > EAP_TLS_MAX_LEN) {
-+			error("Error: tls message length > %d, truncated",
-+				EAP_TLS_MAX_LEN);
-+			tlslen = EAP_TLS_MAX_LEN;
++		if (!ets->data) {
++
++			if (tlslen > EAP_TLS_MAX_LEN) {
++				error("EAP-TLS: TLS message length > %d, truncated", EAP_TLS_MAX_LEN);
++				tlslen = EAP_TLS_MAX_LEN;
++			}
++
++			/*
++			 * Allocate memory for the whole message
++			*/
++			ets->data = malloc(tlslen);
++			if (!ets->data)
++				fatal("EAP-TLS: allocation error\n");
++
++			ets->datalen = 0;
++			ets->tlslen = tlslen;
 +		}
-+
-+		/*
-+		 * Allocate memory for the whole message
-+		*/
-+		ets->data = malloc(tlslen);
-+		if (!ets->data)
-+			fatal("EAP TLS: allocation error\n");
-+
-+		ets->datalen = 0;
-+		ets->tlslen = tlslen;
-+
-+	}
-+	else if (flags & EAP_TLS_FLAGS_LI && ets->data) {
-+		/*
-+		 * Non first with LI (strange...)
-+		*/
-+
-+		GETLONG(tlslen, inp);
-+		len -= 4;
-+
++		else
++			warn("EAP-TLS: non-first LI packet? that's odd...");
 +	}
 +	else if (!ets->data) {
 +		/*
@@ -1855,7 +1863,7 @@ changes:
 +
 +		ets->data = malloc(len);
 +		if (!ets->data)
-+			fatal("EAP TLS: allocation error\n");
++			fatal("EAP-TLS: allocation error\n");
 +
 +		ets->datalen = 0;
 +		ets->tlslen = len;
@@ -1866,8 +1874,13 @@ changes:
 +	else
 +		ets->frag = 0;
 +
++	if (len < 0) {
++		warn("EAP-TLS: received malformed data");
++		return 1;
++	}
++
 +	if (len + ets->datalen > ets->tlslen) {
-+		warn("EAP TLS: received data > TLS message length");
++		warn("EAP-TLS: received data > TLS message length");
 +		return 1;
 +	}
 +
@@ -1881,7 +1894,7 @@ changes:
 +		 */
 +
 +		if (ets->datalen != ets->tlslen) {
-+			warn("EAP TLS: received data != TLS message length");
++			warn("EAP-TLS: received data != TLS message length");
 +			return 1;
 +		}
 +
@@ -2142,7 +2155,6 @@ changes:
 +
 +	switch(content_type) {
 +
-+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
 +	case SSL3_RT_HEADER:
 +		strcat(string, "SSL/TLS Header: ");
 +		switch(hvers) {
@@ -2168,7 +2180,6 @@ changes:
 +			strcat(string, "Unknown version");
 +		}
 +		break;
-+#endif /* OPENSSL_VERSION_NUMBER >= 0x10100000L */
 +
 +	case SSL3_RT_ALERT:
 +		strcat(string, "Alert: ");
@@ -2676,7 +2687,7 @@ changes:
  #ifdef USE_SRP
  	struct t_client *tc;
  	struct t_num sval, gval, Nval, *Ap, Bval;
-@@ -1456,6 +1696,90 @@
+@@ -1456,6 +1696,100 @@
  		    esp->es_client.ea_namelen);
  		break;
  
@@ -2687,6 +2698,11 @@ changes:
 +
 +		case eapListen:
 +
++			if (len < 1) {
++				error("EAP: received EAP-TLS Listen packet with no data");
++				/* Bogus request; wait for something real. */
++				return;
++			}
 +			GETCHAR(flags, inp);
 +			if(flags & EAP_TLS_FLAGS_START){
 +
@@ -2724,6 +2740,11 @@ changes:
 +			break;
 +
 +		case eapTlsRecv:
++			if (len < 1) {
++				error("EAP: discarding EAP-TLS Receive packet with no data");
++				/* Bogus request; wait for something real. */
++				return;
++			}
 +			eaptls_receive(ets, inp, len);
 +
 +			if(ets->frag) {
@@ -2767,7 +2788,7 @@ changes:
  #ifdef USE_SRP
  	case EAPT_SRP:
  		if (len < 1) {
-@@ -1737,6 +2061,11 @@
+@@ -1737,6 +2071,11 @@
  	u_char dig[SHA_DIGESTSIZE];
  #endif /* USE_SRP */
  
@@ -2779,7 +2800,7 @@ changes:
  	if (esp->es_server.ea_id != id) {
  		dbglog("EAP: discarding Response %d; expected ID %d", id,
  		    esp->es_server.ea_id);
-@@ -1776,6 +2105,60 @@
+@@ -1776,6 +2115,64 @@
  		eap_figure_next_state(esp, 0);
  		break;
  
@@ -2788,6 +2809,7 @@ changes:
 +		switch(esp->es_server.ea_state) {
 +
 +		case eapTlsRecv:
++
 +			ets = (struct eaptls_session *) esp->es_server.ea_session;
 +			eap_figure_next_state(esp,
 +				eaptls_receive(esp->es_server.ea_session, inp, len));
@@ -2808,19 +2830,22 @@ changes:
 +		case eapTlsRecvClient:
 +			/* Receive authentication response from client */
 +
-+			GETCHAR(flags, inp);
++			if (len > 0) {
++				GETCHAR(flags, inp);
 +
-+			if(len == 1 && !flags) {	/* Ack = ok */
++				if(len == 1 && !flags) {	/* Ack = ok */
 +#ifdef MPPE
-+ 				eaptls_gen_mppe_keys( esp->es_server.ea_session, "client EAP encryption", 0 );
++ 					eaptls_gen_mppe_keys( esp->es_server.ea_session, "client EAP encryption", 0 );
 +#endif
-+				eap_send_success(esp);
++					eap_send_success(esp);
++				}
++				else {			/* failure */
++					warn("Server authentication failed");
++					eap_send_failure(esp);
++				}
 +			}
-+			else {			/* failure */
-+				eaptls_receive(esp->es_server.ea_session, inp, len);
-+				warn("Server authentication failed");
-+				eap_send_failure(esp);
-+			}
++			else
++				warn("Bogus EAP-TLS packet received from client");
 +
 +			eaptls_free_session(esp->es_server.ea_session);
 +
@@ -2840,7 +2865,7 @@ changes:
  	case EAPT_NOTIFICATION:
  		dbglog("EAP unexpected Notification; response discarded");
  		break;
-@@ -1807,6 +2190,13 @@
+@@ -1807,6 +2204,13 @@
  			esp->es_server.ea_state = eapMD5Chall;
  			break;
  
@@ -2854,7 +2879,7 @@ changes:
  		default:
  			dbglog("EAP: peer requesting unknown Type %d", vallen);
  			switch (esp->es_server.ea_state) {
-@@ -2018,13 +2408,27 @@
+@@ -2018,13 +2422,27 @@
  int id;
  int len;
  {
@@ -2883,7 +2908,7 @@ changes:
  	if (esp->es_client.ea_timeout > 0) {
  		UNTIMEOUT(eap_client_timeout, (void *)esp);
  	}
-@@ -2150,6 +2554,9 @@
+@@ -2150,6 +2568,9 @@
  	int code, id, len, rtype, vallen;
  	u_char *pstart;
  	u_int32_t uval;
@@ -2893,7 +2918,7 @@ changes:
  
  	if (inlen < EAP_HEADERLEN)
  		return (0);
-@@ -2214,6 +2621,24 @@
+@@ -2214,6 +2635,24 @@
  			}
  			break;
  
@@ -2918,7 +2943,7 @@ changes:
  		case EAPT_SRP:
  			if (len < 3)
  				goto truncated;
-@@ -2325,6 +2750,25 @@
+@@ -2325,6 +2764,25 @@
  			}
  			break;
  
@@ -2944,7 +2969,7 @@ changes:
  		case EAPT_NAK:
  			if (len <= 0) {
  				printer(arg, " <missing hint>");
-@@ -2426,3 +2870,4 @@
+@@ -2426,3 +2884,4 @@
  
  	return (inp - pstart);
  }
