@@ -160,6 +160,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <net/if.h>
 
 #include "pppd.h"
 #include "fsm.h"
@@ -305,6 +306,7 @@ struct protent ipv6cp_protent = {
 
 static void ipv6cp_clear_addrs __P((int, eui64_t, eui64_t));
 static void ipv6cp_script __P((char *));
+static void ipv6cp_script_wait __P((char *));
 static void ipv6cp_script_done __P((void *));
 
 /*
@@ -1149,6 +1151,20 @@ ipv6_demand_conf(u)
 	return 0;
     if (!sif6addr(u, wo->ourid, wo->hisid))
 	return 0;
+
+    /* get interface index */
+    unsigned int ifindex = if_nametoindex(ifname);
+
+    /* run the pre-up script, if any, and wait for it to finish */
+    ipv6cp_script_wait(_PATH_IPV6PREUP);
+
+    /* check if preup script renamed the interface */
+    if (!if_indextoname(ifindex, ifname)) {
+        if (debug)
+            warn("Interface index %d changed but can't find it");
+        return 0;
+    }
+
 #if !defined(__linux__) && !(defined(SVR4) && (defined(SNI) || defined(__USLC__)))
     if (!sifup(u))
 	return 0;
@@ -1239,6 +1255,20 @@ ipv6cp_up(f)
 	sifnpmode(f->unit, PPP_IPV6, NPMODE_PASS);
 
     } else {
+	/* get interface index */
+	unsigned int ifindex = if_nametoindex(ifname);
+
+	/* run the pre-up script, if any, and wait for it to finish */
+	ipv6cp_script_wait(_PATH_IPV6PREUP);
+	
+	/* check if preup script renamed the interface */
+	if (!if_indextoname(ifindex, ifname)) {
+	    if (debug)
+                warn("Interface index %d changed but can't find it");
+            ipv6cp_close(f->unit, "Interface configuration failed");
+            return;
+        }
+
 	/* bring the interface up for IPv6 */
 	if (!sif6up(f->unit)) {
 	    if (debug)
@@ -1255,9 +1285,12 @@ ipv6cp_up(f)
 	}
 	sifnpmode(f->unit, PPP_IPV6, NPMODE_PASS);
 
+	notice("ipv6cp_up dev:%s", ifname);
 	notice("local  LL address %s", llv6_ntoa(go->ourid));
 	notice("remote LL address %s", llv6_ntoa(ho->hisid));
     }
+
+    reset_link_stats(f->unit);
 
     np_up(f->unit, PPP_IPV6);
     ipv6cp_is_up = 1;
@@ -1406,6 +1439,33 @@ ipv6cp_script(script)
 
     ipv6cp_script_pid = run_program(script, argv, 0, ipv6cp_script_done,
 				    NULL, 0);
+}
+
+/*
+ * ipv6cp_script_wait - Execute a script with arguments
+ * interface-name tty-name speed local-LL remote-LL.
+ */
+static void
+ipv6cp_script_wait(script)
+    char *script;
+{
+    char strspeed[32], strlocal[32], strremote[32];
+    char *argv[8];
+
+    sprintf(strspeed, "%d", baud_rate);
+    strcpy(strlocal, llv6_ntoa(ipv6cp_gotoptions[0].ourid));
+    strcpy(strremote, llv6_ntoa(ipv6cp_hisoptions[0].hisid));
+
+    argv[0] = script;
+    argv[1] = ifname;
+    argv[2] = devnam;
+    argv[3] = strspeed;
+    argv[4] = strlocal;
+    argv[5] = strremote;
+    argv[6] = ipparam;
+    argv[7] = NULL;
+
+    run_program(script, argv, 0, NULL, NULL, 1);
 }
 
 /*

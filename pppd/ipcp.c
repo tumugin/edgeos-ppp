@@ -1765,7 +1765,18 @@ ip_demand_conf(u)
     }
     if (!sifaddr(u, wo->ouraddr, wo->hisaddr, GetMask(wo->ouraddr)))
 	return 0;
+
+    unsigned int ifindex = if_nametoindex(ifname);
+    
     ipcp_script(_PATH_IPPREUP, 1);
+
+    /* check if preup script renamed the interface */
+    if (!if_indextoname(ifindex, ifname)) {
+        if (debug)
+	    warn("Interface index %d changed but can't find it");
+	return 0;
+    }
+
     if (!sifup(u))
 	return 0;
     if (!sifnpmode(u, PPP_IP, NPMODE_QUEUE))
@@ -1922,8 +1933,18 @@ ipcp_up(f)
 	}
 #endif
 
+    unsigned int ifindex = if_nametoindex(ifname);
+	
 	/* run the pre-up script, if any, and wait for it to finish */
 	ipcp_script(_PATH_IPPREUP, 1);
+
+	/* check if preup script renamed the interface */
+	if (!if_indextoname(ifindex, ifname)) {
+	    if (debug)
+	        warn("Interface index %d changed but can't find it");
+	    ipcp_close(f->unit, "Interface configuration failed");
+	    return;
+    }
 
 	/* bring the interface up for IP */
 	if (!sifup(f->unit)) {
